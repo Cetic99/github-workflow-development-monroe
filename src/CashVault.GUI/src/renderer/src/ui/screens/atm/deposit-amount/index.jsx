@@ -1,0 +1,192 @@
+import IconMoneyIn from '@ui/components/icons/IconMoneyIn'
+import CircleButton from '@ui/components/circle-button'
+import IconLeftHalfArrow from '@ui/components/icons/IconLeftHalfArrow'
+import IconRightHalfArrow from '@ui/components/icons/IconRightHalfArrow'
+import ScreenContainer from '@ui/components/screen-container'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from '@domain/administration/stores'
+import styled from '@emotion/styled'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 5rem;
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+
+  & .header {
+    margin-bottom: 1.5rem;
+    h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--secondary-dark);
+      margin-top: 1.5rem;
+    }
+
+    h1 {
+      font-size: 4.375rem;
+      font-weight: 800;
+      line-height: 4.375rem;
+      margin-top: 1rem;
+    }
+
+    h2 {
+      font-size: 1.625rem;
+      color: var(--primary-dark);
+      font-weight: 400;
+      margin-top: 1.5rem;
+    }
+  }
+
+  & .footer {
+    padding-top: 3rem;
+    margin-top: auto;
+    display: flex;
+    gap: 4rem;
+    justify-content: space-between;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    pointer-events: none;
+
+    & > * {
+      pointer-events: all;
+    }
+  }
+
+  & .content {
+    h2 {
+      font-size: 4.375rem;
+      line-height: 4.375rem;
+      font-weight: 800;
+      color: var(--secondary-dark);
+    }
+
+    & .options {
+      margin-top: 3rem;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  }
+`
+
+const DepositItem = styled.div`
+  display: flex;
+  padding: 0.625rem 1rem;
+  background: white;
+  color: var(--secondary-dark);
+  font-weight: 400;
+  gap: 0.2rem;
+  border-radius: 0.625rem;
+  font-size: 2rem;
+
+  & span {
+    font-weight: 700;
+  }
+`
+
+const dummyData = [
+  {
+    note: 5,
+    amount: 10
+  },
+  {
+    note: 10,
+    amount: 10
+  },
+  {
+    note: 20,
+    amount: 5
+  },
+  {
+    note: 50,
+    amount: 2
+  },
+  {
+    note: 100,
+    amount: 1
+  },
+  {
+    note: 200,
+    amount: 1
+  }
+]
+
+const DepositAmountScreen = () => {
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+
+  const onGoBack = () => {
+    navigate('/atm/')
+  }
+
+  const handleOnProceed = () => {
+    navigate('/atm/select-receipt?title=deposit+money')
+  }
+
+  const totalAmount = dummyData.reduce((acc, cur) => {
+    return acc + cur.amount * cur.note
+  }, 0)
+
+  return (
+    <ScreenContainer
+      hasLogo={true}
+      hasOnGoBack={false}
+      hasExitButton={false}
+      hasMasterAuthButton={false}
+      hasUserButton={false}
+      hasLanguageSwitcher={false}
+      hasSettingsButton={true}
+      urlPrefix="atm"
+    >
+      <Container>
+        <div className="header">
+          <IconMoneyIn size="xl" color="var(--secondary-dark)" />
+          <h3>Deposit money</h3>
+          <h1>
+            Total amount for <br /> deposit:
+          </h1>
+        </div>
+
+        <div className="content">
+          <h2>{totalAmount} EUR</h2>
+
+          <div className="options">
+            {dummyData.map((option, index) => (
+              <DepositItem key={index}>
+                <span>
+                  {option.amount} x {option.note}
+                </span>
+                EUR
+              </DepositItem>
+            ))}
+          </div>
+        </div>
+
+        <div className="footer">
+          <CircleButton
+            icon={(props) => <IconLeftHalfArrow {...props} />}
+            size="l"
+            color="medium"
+            textRight={t('Back')}
+            onClick={onGoBack}
+            shadow={true}
+          />
+          <CircleButton
+            icon={(props) => <IconRightHalfArrow {...props} />}
+            size="l"
+            color="dark"
+            textRight={t('Accept')}
+            onClick={handleOnProceed}
+            shadow={true}
+          />
+        </div>
+      </Container>
+    </ScreenContainer>
+  )
+}
+
+export default DepositAmountScreen

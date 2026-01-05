@@ -1,0 +1,1 @@
+ALTER TABLE "Transaction" ADD "IsCms" BOOLEAN DEFAULT FALSE;

@@ -1,0 +1,510 @@
+#!/bin/bash
+set -e
+
+cwd=$(pwd)
+FIREBIRD="/tmp/Firebird-5.0.3.1683-0-linux-x64"
+ENV_FILE="/etc/monroe/.env"
+APPSETTINGS_DIR="/usr/share/CashVault.WebAPI"
+APPSETTINGS_PLAIN="$APPSETTINGS_DIR/appsettings.json"
+APPSETTINGS_ENC="$APPSETTINGS_DIR/appsettings.enc.json"
+APPSETTINGS_BAK="$APPSETTINGS_DIR/appsettings.enc.json.bak"
+
+# Function to encrypt appsettings.json
+# - Generates keys on first install and saves to .env
+# - Uses existing keys on update
+# - Creates backup before encrypting
+# - Falls back to backup if encryption fails
+encrypt_appsettings() {
+    echo "Processing appsettings.json encryption..."
+    
+    # Check if plaintext appsettings.json exists (new install or update)
+    if [ ! -f "$APPSETTINGS_PLAIN" ]; then
+        echo "No plaintext appsettings.json found, skipping encryption."
+        return 0
+    fi
+    
+    # Check if keys exist in .env, generate if not
+    if [ -z "$MONROE_AES_KEY" ] || [ -z "$MONROE_AES_IV" ]; then
+        echo "Generating new encryption keys..."
+        MONROE_AES_KEY=$(openssl rand -base64 32)
+        MONROE_AES_IV=$(openssl rand -base64 16)
+        
+        # Ensure .env directory exists
+        mkdir -p "$(dirname "$ENV_FILE")"
+        
+        # Append keys to .env file
+        echo "" >> "$ENV_FILE"
+        echo "# Encryption keys for appsettings.json (auto-generated)" >> "$ENV_FILE"
+        echo "MONROE_AES_KEY=$MONROE_AES_KEY" >> "$ENV_FILE"
+        echo "MONROE_AES_IV=$MONROE_AES_IV" >> "$ENV_FILE"
+        
+        echo "✓ Encryption keys generated and saved to $ENV_FILE"
+    else
+        echo "Using existing encryption keys from $ENV_FILE"
+    fi
+    
+    # Backup existing encrypted file if it exists
+    if [ -f "$APPSETTINGS_ENC" ]; then
+        echo "Creating backup of existing encrypted config..."
+        cp "$APPSETTINGS_ENC" "$APPSETTINGS_BAK"
+        echo "✓ Backup created: $APPSETTINGS_BAK"
+    fi
+    
+    # Convert base64 key and IV to hex for openssl
+    local KEY_HEX=$(echo -n "$MONROE_AES_KEY" | base64 -d | xxd -p | tr -d '\n')
+    local IV_HEX=$(echo -n "$MONROE_AES_IV" | base64 -d | xxd -p | tr -d '\n')
+    
+    # Encrypt the configuration file
+    echo "Encrypting appsettings.json..."
+    if openssl enc -aes-256-cbc -in "$APPSETTINGS_PLAIN" -out "$APPSETTINGS_ENC" \
+        -K "$KEY_HEX" -iv "$IV_HEX" 2>/dev/null; then
+        
+        echo "✓ Configuration encrypted successfully"
+        
+        # Remove plaintext file after successful encryption
+        rm -f "$APPSETTINGS_PLAIN"
+        echo "✓ Plaintext appsettings.json removed"
+        
+        # Remove backup since encryption succeeded
+        if [ -f "$APPSETTINGS_BAK" ]; then
+            rm -f "$APPSETTINGS_BAK"
+        fi
+    else
+        echo "========================================="
+        echo "WARNING: Encryption failed!"
+        echo "========================================="
+        
+        # Restore backup if available
+        if [ -f "$APPSETTINGS_BAK" ]; then
+            echo "Restoring previous encrypted configuration from backup..."
+            mv "$APPSETTINGS_BAK" "$APPSETTINGS_ENC"
+            echo "✓ Previous encrypted configuration restored"
+            echo "WARNING: New appsettings.json was NOT applied!"
+        else
+            echo "ERROR: No backup available to restore!"
+            echo "The application may not work correctly."
+        fi
+        
+        # Remove failed plaintext (don't leave it exposed)
+        rm -f "$APPSETTINGS_PLAIN"
+        echo "========================================="
+    fi
+}
+
+# Function to update appsettings.json with generated password and fix paths
+update_appsettings() {
+    if [ -f "$APPSETTINGS_PLAIN" ]; then
+        echo "Updating appsettings.json with Firebird password..."
+        sed -i "s|Password=masterkey|Password=$SYSDBA_FIREBIRD_PASSWORD|g" "$APPSETTINGS_PLAIN"
+        echo "✓ Database password updated in appsettings.json"
+        
+        echo "Fixing certificate path in appsettings.json..."
+        sed -i 's|Certs\\\\private_key.pem|Certs/private_key.pem|g' "$APPSETTINGS_PLAIN"
+        echo "✓ Certificate path fixed in appsettings.json"
+    fi
+}
+
+# Function to generate Firebird SYSDBA password if not present
+generate_firebird_password() {
+    if [ -z "$SYSDBA_FIREBIRD_PASSWORD" ]; then
+        echo "Generating new Firebird SYSDBA password..."
+        SYSDBA_FIREBIRD_PASSWORD=$(openssl rand -base64 32)
+        
+        # Ensure .env directory exists
+        mkdir -p "$(dirname "$ENV_FILE")"
+        
+        # Append password to .env file
+        echo "" >> "$ENV_FILE"
+        echo "# Firebird SYSDBA password (auto-generated)" >> "$ENV_FILE"
+        echo "SYSDBA_FIREBIRD_PASSWORD=$SYSDBA_FIREBIRD_PASSWORD" >> "$ENV_FILE"
+        
+        # Re-source the .env file to load the new password
+        set -a
+        source "$ENV_FILE"
+        set +a
+        
+        # Verify the password was loaded
+        if [ -z "$SYSDBA_FIREBIRD_PASSWORD" ]; then
+            echo "=========================================" >&2
+            echo "ERROR: Failed to generate Firebird SYSDBA password!" >&2
+            echo "The password was generated but could not be loaded from $ENV_FILE" >&2
+            echo "Installation cannot continue without a database password." >&2
+            echo "=========================================" >&2
+            exit 1
+        fi
+        
+        echo "✓ Firebird SYSDBA password generated and saved to $ENV_FILE"
+    else
+        echo "Using existing Firebird SYSDBA password from $ENV_FILE"
+    fi
+}
+
+# Function to install Firebird database server
+install_firebird() {
+    # Generate Firebird SYSDBA password if not already present
+    generate_firebird_password
+    
+    # Clean up old Firebird backup archives before new installation
+    # (Firebird install.sh will create a new backup if needed)
+    echo "Cleaning up old Firebird backup archives..."
+    find /opt -maxdepth 1 -name "firebird_*.tar.gz" -type f -delete 2>/dev/null || true
+    echo "Old Firebird backups cleaned"
+    
+    echo "Installing Firebird database server..."
+    cd $FIREBIRD
+    if systemctl is-active --quiet firebird; then   # check if firebird service is running
+            sudo ./install.sh <<EOF
+
+
+$SYSDBA_FIREBIRD_PASSWORD
+EOF
+    else
+            sudo ./install.sh <<EOF
+
+$SYSDBA_FIREBIRD_PASSWORD
+EOF
+    fi
+    
+    # Copy custom databases.conf (after Firebird installation)
+    echo "Configuring Firebird databases..."
+    sudo cp /tmp/firebird/databases.conf /opt/firebird/databases.conf
+    
+    # Clean up Firebird temporary files and lock files to avoid "Security database error"
+    # This prevents the need for system restart after installation
+    echo "Cleaning up Firebird temporary files..."
+    sudo systemctl stop firebird 2>/dev/null || true
+    sudo pkill -9 fbguard 2>/dev/null || true
+    sudo pkill -9 firebird 2>/dev/null || true
+    sudo pkill -9 fb_inet_server 2>/dev/null || true
+    sudo rm -rf /tmp/firebird* 2>/dev/null || true
+    
+    # Restart Firebird to load new databases.conf and clean state
+    echo "Starting Firebird with new configuration..."
+    sudo systemctl start firebird.service
+    
+    # Wait for Firebird to be ready
+    sleep 3
+    
+    # Verify Firebird is running
+    if systemctl is-active --quiet firebird; then
+        echo "✓ Firebird service is running and configured"
+    else
+        echo "=========================================" >&2
+        echo "WARNING: Firebird service failed to start" >&2
+        echo "=========================================" >&2
+        sudo systemctl status firebird.service --no-pager || true
+        echo "Attempting to diagnose the issue..." >&2
+        echo "Check Firebird logs: sudo journalctl -u firebird -n 50" >&2
+        echo "=========================================" >&2
+    fi
+    
+    cd $cwd
+}
+
+configure_networkmanager_permissions() {
+    echo "Configuring NetworkManager permissions for group 'monroe' via polkit..."
+
+    # Reload polkit rules and restart NetworkManager so new permissions take effect
+    if systemctl is-active --quiet polkit; then
+        sudo systemctl restart polkit || true
+    fi
+
+    if systemctl is-active --quiet NetworkManager; then
+        sudo systemctl restart NetworkManager || true
+    fi
+
+    echo "✓ NetworkManager permission configuration completed (polkit, NetworkManager restarted if running)"
+}
+
+# Function to disable system updates and notifications
+disable_system_updates() {
+    echo "────────────────────────────────────────────"
+    echo "   Disabling Ubuntu system updates & popups"
+    echo "────────────────────────────────────────────"
+
+    #
+    # Disable/mask update-related services and timers
+    #
+    systemctl disable --now apt-daily.timer 2>/dev/null || true
+    systemctl disable --now apt-daily-upgrade.timer 2>/dev/null || true
+    systemctl mask apt-daily.service 2>/dev/null || true
+    systemctl mask apt-daily-upgrade.service 2>/dev/null || true
+    systemctl disable --now unattended-upgrades.service 2>/dev/null || true
+
+    echo "✓ APT update services disabled & masked"
+
+    #
+    # Disable periodic APT tasks
+    #
+    cat <<'EOF' > /etc/apt/apt.conf.d/99-disable-auto-updates
+APT::Periodic::Update-Package-Lists "0";
+APT::Periodic::Download-Upgradeable-Packages "0";
+APT::Periodic::AutocleanInterval "0";
+APT::Periodic::Unattended-Upgrade "0";
+EOF
+
+    echo "✓ APT background tasks disabled"
+
+    #
+    # Disable GNOME Software autostart popup
+    #
+    mkdir -p /etc/xdg/autostart
+    cat <<'EOF' > /etc/xdg/autostart/org.gnome.Software.desktop
+[Desktop Entry]
+Type=Application
+Name=GNOME Software
+Exec=/bin/true
+Hidden=true
+NoDisplay=true
+X-GNOME-Autostart-enabled=false
+EOF
+
+    echo "✓ GNOME Software update popup disabled"
+
+    #
+    # Mask GNOME Software background service globally
+    #
+    systemctl --global mask org.gnome.Software.service 2>/dev/null || true
+    echo "✓ GNOME Software background service masked"
+
+    #
+    # Disable update-notifier popup (the tray alert and banner message)
+    #
+    if [ -f /etc/xdg/autostart/update-notifier.desktop ]; then
+        sed -i 's/^Exec=.*/Exec=\/bin\/true/' /etc/xdg/autostart/update-notifier.desktop
+        sed -i 's/^X-GNOME-Autostart-enabled=.*/X-GNOME-Autostart-enabled=false/' /etc/xdg/autostart/update-notifier.desktop
+        sed -i 's/^Hidden=.*/Hidden=true/' /etc/xdg/autostart/update-notifier.desktop
+        echo "✓ update-notifier disabled"
+    else
+        echo "⭑ update-notifier.desktop not found (already removed on this system)"
+    fi
+
+    echo "────────────────────────────────────────────"
+    echo "✔ All system update mechanisms and popups disabled"
+    echo "────────────────────────────────────────────"
+}
+
+# Restore .env backup from preinst if it exists (upgrade scenario)
+if [ -f "${ENV_FILE}.backup" ]; then
+    echo "Restoring .env file from backup..."
+    cp "${ENV_FILE}.backup" "$ENV_FILE"
+    rm -f "${ENV_FILE}.backup"
+    echo "✓ .env file restored from backup"
+fi
+
+# Load environment variables from .env if it exists
+if [ -f "$ENV_FILE" ]; then
+    echo "Loading environment variables from $ENV_FILE..."
+    set -a  # automatically export all variables
+    source "$ENV_FILE"
+    set +a  # stop automatically exporting
+    echo "✓ Environment variables loaded"
+else
+    echo "Note: .env file not found at $ENV_FILE - will be created with encryption keys"
+fi
+
+case "$1" in
+    configure)
+        echo "Configuring monroe-device-client package..."
+        
+        echo "Updating shared library cache..."
+        sudo ldconfig
+        # Install Firebird database server (includes password generation)
+        install_firebird
+        
+        # Update appsettings.json with generated password and fix paths before encryption
+        update_appsettings
+        
+        # Encrypt appsettings.json (generates keys on first install, uses existing on update)
+        encrypt_appsettings
+        
+        
+        # Make Flyway executable
+        chmod +x /opt/flyway/flyway
+        
+        # Copy migrations to permanent location
+        if [ -d /tmp/migrations ]; then
+            echo "Copying database migrations..."
+            mkdir -p /opt/monroe/migrations
+            cp -r /tmp/migrations/* /opt/monroe/migrations/
+            echo "Migrations copied successfully"
+        fi
+        
+        # Make database setup script executable
+        chmod +x /usr/local/bin/monroe-db-setup.sh
+        
+        # Run database setup and migrations
+        echo "Running database setup and migrations..."
+        /usr/local/bin/monroe-db-setup.sh
+        
+        # Set database permissions (after it's created)
+        if [ -f /usr/local/monroe/monroe-db.fdb ]; then
+            sudo chmod 660 /usr/local/monroe/monroe-db.fdb
+            sudo chown firebird:firebird /usr/local/monroe/monroe-db.fdb
+        fi
+        
+        # Setup early KMS for smooth resolution
+        if [ -x /usr/local/monroe/scripts/setup-early-kms.sh ]; then
+            echo "Setting up early KMS for smooth boot..."
+            /usr/local/monroe/scripts/setup-early-kms.sh || {
+                echo "Warning: Early KMS setup failed, but continuing installation"
+            }
+        fi
+        
+        # Setup Plymouth splash screen
+        if [ -x /usr/local/monroe/scripts/plymouth-setup.sh ]; then
+            echo "Setting up Plymouth splash screen..."
+            /usr/local/monroe/scripts/plymouth-setup.sh || {
+                echo "Warning: Plymouth theme setup failed, but continuing installation"
+            }
+        fi
+
+        # Apply polkit rule for NetworkManager and restart related services so new permissions take effect
+        configure_networkmanager_permissions
+
+        
+        # Ensure proper ownership of systemd user directory
+        MONROE_HOME=$(getent passwd monroe | cut -d: -f6)
+        chown -R monroe:monroe "$MONROE_HOME/.config/systemd"
+        
+        echo "Setting permissions for Chrome sandbox..."
+        chown root:root /opt/monroe-frontend/chrome-sandbox
+        chmod 4755 /opt/monroe-frontend/chrome-sandbox
+
+        echo "Setting permissions for monroe user..."
+        usermod -aG dialout monroe # Add monroe user to dialout group for serial port access
+        
+        # Reload systemd daemon to pick up any service changes
+        echo "Reloading systemd daemon..."
+        systemctl daemon-reload
+        
+        # --- Enable power saving disable service ---
+        echo "Enabling power saving disable service..."
+        MONROE_UID=$(id -u monroe)
+
+        # Reload user systemd daemon if monroe is logged in
+        if [ -d "/run/user/$MONROE_UID" ]; then
+            sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user daemon-reload 2>/dev/null || true
+        fi
+        
+        # Enable system service
+        echo "Enabling monroe-backbone service..."
+        systemctl enable monroe-backbone.service
+        
+        # Start monroe-backbone service first (backend must be running before frontend)
+        echo "Starting monroe-backbone service..."
+        systemctl start monroe-backbone.service || {
+            echo "Warning: Could not start monroe-backbone service"
+        }
+        
+        # Enable both user services
+        echo "Enabling user services..."
+        sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user enable disable-powersave.service 2>/dev/null || {
+            echo "Note: disable-powersave service will be enabled on first login"
+        }
+        sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user enable monroe-frontend.service 2>/dev/null || {
+            echo "Note: monroe-frontend service will be enabled on first login"
+        }
+        sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user enable enable-gnome-extensions.service 2>/dev/null || {
+            echo "Note: enable-gnome-extensions service will be enabled on first login"
+        }
+        
+        # Start user services immediately if monroe user is logged in
+        if [ -d "/run/user/$MONROE_UID" ]; then
+            echo "Monroe user session detected, starting user services..."
+            
+            sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user start disable-powersave.service 2>/dev/null && {
+                echo "Power saving settings applied successfully"
+            } || {
+                echo "Could not start disable-powersave service, will start on next login"
+            }
+            
+            sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user start enable-gnome-extensions.service 2>/dev/null && {
+                echo "GNOME extensions enabled successfully"
+            } || {
+                echo "Could not enable GNOME extensions, will enable on next login"
+            }
+            
+            # Give backend a moment to initialize before starting frontend
+            sleep 1
+            
+            sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user start monroe-frontend.service 2>/dev/null && {
+                echo "Monroe frontend service started successfully"
+            } || {
+                echo "Could not start frontend service, will start on next login"
+            }
+        else
+            echo "Monroe user not logged in - user services will start on first login"
+        fi
+        
+        echo "To control manually:"
+        echo "  System service: sudo systemctl {start|stop|restart|status} monroe-backbone.service"
+        echo "  User services: sudo -u monroe systemctl --user {start|stop|restart|status} {disable-powersave.service|monroe-frontend.service}"
+
+        # --- GDM autologin configuration ---
+        echo "Configuring GDM autologin and disabling Wayland..."
+        CONF="/etc/gdm3/custom.conf"
+        USER_NAME="monroe"
+
+        if id -u "$USER_NAME" >/dev/null 2>&1; then
+          if [ -f "$CONF" ]; then
+            # Backup prvi put
+            [ -f "${CONF}.monroe.bak" ] || cp -a "$CONF" "${CONF}.monroe.bak"
+            
+            # Provjeri da li postoji [daemon] sekcija
+            if grep -q "^\[daemon\]" "$CONF"; then
+              # Ukloni postojeće AutomaticLogin* linije iz [daemon] sekcije
+              sed -i '/^\[daemon\]/,/^\[/ {/^AutomaticLoginEnable=/d; /^AutomaticLogin=/d}' "$CONF"
+              
+              # Ukloni postojeće WaylandEnable linije iz [daemon] sekcije
+              sed -i '/^\[daemon\]/,/^\[/ {/^WaylandEnable=/d; /^#WaylandEnable=/d}' "$CONF"
+              
+              # Dodaj linije odmah nakon [daemon]
+              sed -i "/^\[daemon\]/a AutomaticLoginEnable=true\nAutomaticLogin=$USER_NAME\nWaylandEnable=false" "$CONF"
+              echo "GDM autologin configured for user $USER_NAME"
+              echo "Wayland disabled, using Xorg"
+            else
+              echo "Warning: [daemon] section not found in $CONF, skipping autologin setup" >&2
+            fi
+          else
+            echo "Warning: $CONF does not exist, skipping autologin setup" >&2
+          fi
+        else
+          echo "Warning: user $USER_NAME does not exist, skipping autologin setup" >&2
+        fi
+
+        # --- Enable GNOME extension to disable fullscreen gestures ---
+        echo "Configuring GNOME extension to disable fullscreen gestures..."
+        MONROE_HOME=$(getent passwd monroe | cut -d: -f6)
+        
+        # Set proper ownership of extension directory
+        chown -R monroe:monroe "$MONROE_HOME/.local/share/gnome-shell/extensions" 2>/dev/null || true
+
+        # --- Disable system updates and notifications ---
+        disable_system_updates
+        ;;
+esac
+exit 0
+
+# Enable and start frontend service
+# systemctl enable monroe-frontend.service
+# systemctl restart monroe-frontend.service || true
+
+
+# cp /usr/share/cashvault/start-electron.sh /opt/monroe-frontend/start-electron.sh
+
+# runuser -l kiosk -c 'systemctl --user enable monroe-frontend.service'
+
+
+
+# Optional: create desktop shortcut to frontend
+# mkdir -p /usr/share/applications
+# cat <<EOF > /usr/share/applications/monroe-frontend.desktop
+# [Desktop Entry]
+# Name=CashVault
+# Exec=/opt/cashvault/frontend/monroe-frontend --fullscreen
+# Type=Application
+# Icon=/opt/cashvault/frontend/resources/icon.png
+# StartupNotify=true
+# Categories=Utility;
+# EOF

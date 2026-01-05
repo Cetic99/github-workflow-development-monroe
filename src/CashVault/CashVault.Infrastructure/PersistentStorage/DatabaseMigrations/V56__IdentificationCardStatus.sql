@@ -1,0 +1,2 @@
+INSERT INTO "IdentificationCardStatus" ("Id","Code","Description") VALUES (1,'active','Card is active');
+INSERT INTO "IdentificationCardStatus" ("Id","Code","Description") VALUES (2,'blocked','Card is blocked');

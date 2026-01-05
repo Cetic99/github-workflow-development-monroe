@@ -1,0 +1,16 @@
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/bin/Debug/net8.0/CashVault.Application.deps.json
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/bin/Debug/net8.0/CashVault.Application.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/bin/Debug/net8.0/CashVault.Application.pdb
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/bin/Debug/net8.0/CashVault.Domain.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/bin/Debug/net8.0/CashVault.Domain.pdb
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.csproj.AssemblyReference.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.AssemblyInfoInputs.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.AssemblyInfo.cs
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.csproj.CoreCompileInputs.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.sourcelink.json
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.csproj.CopyComplete
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/refint/CashVault.Application.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/CashVault.Application.pdb
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/Debug/net8.0/ref/CashVault.Application.dll

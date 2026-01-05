@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>NFC_card_tool</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>NFC Card Configurator</AssemblyName>
+    <Product>Monroe NFC Card Configurator</Product>
+    <Version>1.0.0</Version>
+    <Authors>Monroe</Authors>
+    <Company>Monroe</Company>
+    <Copyright>Copyright © Monroe 2024</Copyright>
+    <Description>Monroe NFC Card Configuration Tool</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PCSC" Version="7.0.1" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.1" />
+  </ItemGroup>
+
+  <!-- Monroe Logo Resource -->
+  <ItemGroup>
+    <Resource Include="Assets\monroe_logo.jpg" />
+  </ItemGroup>
+
+</Project>

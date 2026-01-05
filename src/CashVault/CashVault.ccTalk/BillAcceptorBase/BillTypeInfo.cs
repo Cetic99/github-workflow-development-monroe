@@ -1,0 +1,43 @@
+using System;
+
+namespace CashVault.ccTalk.BillAcceptorBase
+{
+    public class BillTypeInfo
+    {
+        public BillTypeInfo(String name, Decimal value, bool isEnabled = true)
+        {
+            Name = name;
+            Value = value;
+            IsEnabled = isEnabled;
+        }
+
+        public String Name { get; private set; }
+        public Decimal Value { get; private set; }
+        public bool IsEnabled { get; set; } = true;
+    }
+
+    /// <summary>
+    /// Represents the available channels for bills in a bill acceptor
+    /// </summary>
+    public enum BillIndex
+    {
+        One = 1,
+        Two = 2,
+        Three = 4,
+        Four = 8,
+        Five = 16,
+        Six = 32,
+        Seven = 64,
+        Eight = 128,
+        Nine = 256,
+        Ten = 512,
+        Eleven = 1024,
+        Twelve = 2048,
+        Thirteen = 4096,
+        Fourteen = 8192,
+        Fifteen = 16384,
+        Sixteen = 32768,
+        None = 0,
+        All = 0xffff,
+    }
+}

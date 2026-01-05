@@ -1,0 +1,2 @@
+﻿
+ALTER TABLE "EventLog" ADD "IsSentToRemote" BOOLEAN DEFAULT FALSE;

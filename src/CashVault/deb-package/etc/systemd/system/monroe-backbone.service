@@ -1,0 +1,13 @@
+[Unit]
+Description=Monroe backbone .NET Web API
+After=network.target
+
+[Service]
+ExecStart=/usr/local/monroe/dotnet CashVault.WebAPI.dll
+WorkingDirectory=/usr/local/monroe
+Restart=always
+User=monroe
+Group=monroe
+
+[Install]
+WantedBy=multi-user.target

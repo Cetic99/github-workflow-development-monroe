@@ -1,0 +1,11 @@
+﻿namespace CashVault.Application.Features.DeviceFeatures.Queries
+{
+    public class TerminalOnlineIntegrationsConfigurationDto
+    {
+        public bool CasinoManagementSystem { get; set; }
+        public string? Url { get; set; }
+        public string? DeviceId { get; set; }
+        public string? SecretKey { get; set; }
+        public int? TimeoutInSeconds { get; set; }
+    }
+}

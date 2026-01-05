@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@ui/*": ["src/renderer/src/ui/*"],
+      "@screens/*": ["src/renderer/src/ui/screens/*"],
+      "@src/*": ["src/renderer/src/*"],
+      "@components/*": ["src/renderer/src/components/*"],
+      "@pages/*": ["src/renderer/src/pages/*"],
+      "@domain/*": ["src/renderer/src/app/domain/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "out"]
+}

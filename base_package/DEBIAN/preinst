@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+  upgrade)
+    echo "Upgrading monroe-device-client package..."
+    
+    # Stop monroe-backbone service
+    echo "Stopping monroe-backbone service..."
+    systemctl stop monroe-backbone.service 2>/dev/null || {
+        echo "Note: monroe-backbone service was not running or could not be stopped"
+    }
+    
+    # Stop monroe-frontend service if running
+    MONROE_UID=$(id -u monroe 2>/dev/null)
+    if [ -n "$MONROE_UID" ] && [ -d "/run/user/$MONROE_UID" ]; then
+        echo "Stopping monroe-frontend service..."
+        sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user stop monroe-frontend.service 2>/dev/null || {
+            echo "Note: Frontend service was not running or could not be stopped"
+        }
+    fi
+    
+    # Create backup of .env file to preserve passwords and encryption keys
+    if [ -f /etc/monroe/.env ]; then
+        echo "Backing up .env file..."
+        cp /etc/monroe/.env /etc/monroe/.env.backup
+        echo ".env backup created successfully"
+    fi
+    
+    # Create backup of existing database before upgrade
+    if [ -f /usr/local/monroe/monroe-db.fdb ]; then
+        BACKUP_FILE="/usr/local/monroe/monroe-db.fdb.backup.$(date +%Y%m%d_%H%M%S)"
+        echo "Creating database backup: $BACKUP_FILE"
+        cp /usr/local/monroe/monroe-db.fdb "$BACKUP_FILE"
+        echo "Database backup created successfully"
+    fi
+    ;;
+  install)
+    echo "Installing monroe-device-client package..."
+    ;;
+esac
+exit 0

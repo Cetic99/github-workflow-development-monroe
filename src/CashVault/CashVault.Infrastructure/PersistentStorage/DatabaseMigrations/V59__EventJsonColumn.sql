@@ -1,0 +1,1 @@
+alter table "EventLog" ADD "Json" BLOB SUB_TYPE TEXT;

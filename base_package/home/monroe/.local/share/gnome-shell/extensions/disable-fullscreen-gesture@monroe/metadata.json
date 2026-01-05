@@ -1,0 +1,7 @@
+{
+  "uuid": "disable-fullscreen-gesture@monroe",
+  "name": "Disable Fullscreen Gesture",
+  "description": "Disables the swipe down gesture that unfullscreens windows - for Monroe kiosk",
+  "shell-version": ["45", "46", "47"],
+  "version": 1
+}

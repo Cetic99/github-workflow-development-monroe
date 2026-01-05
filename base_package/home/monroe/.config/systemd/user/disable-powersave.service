@@ -1,0 +1,16 @@
+[Unit]
+Description=Disable power saving and screen blanking for Monroe kiosk
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'gsettings set org.gnome.desktop.session idle-delay 0'
+ExecStart=/bin/bash -c 'gsettings set org.gnome.desktop.screensaver lock-enabled false'
+ExecStart=/bin/bash -c 'gsettings set org.gnome.desktop.screensaver idle-activation-enabled false'
+ExecStop=/bin/bash -c 'gsettings reset org.gnome.desktop.session idle-delay'
+ExecStop=/bin/bash -c 'gsettings reset org.gnome.desktop.screensaver lock-enabled'
+ExecStop=/bin/bash -c 'gsettings reset org.gnome.desktop.screensaver idle-activation-enabled'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,131 @@
+#Monroe Plymouth Theme
+
+# Configuration: Set rotation angle
+# 0 = No rotation (landscape)
+# Math.Pi/2 = 90 degrees clockwise (portrait - right)
+# Math.Pi = 180 degrees (upside down)
+# 3*Math.Pi/2 = 270 degrees clockwise (portrait - left)
+ROTATION_ANGLE = 0;  # Change this value for portrait mode
+
+# Configuration: Logo size (reduction factor)
+# 0.4 = 40% of screen width/height
+# 0.3 = 30% of screen width/height (smaller)
+# 0.5 = 50% of screen width/height (larger)
+# Adjust if logo is cut off or too small
+LOGO_SIZE = 0.4;  # Change this to scale the logo
+
+# Configuration
+SAFETY_FIT = 0.98;  // small margin so nothing spills into the edges
+
+Window.GetMaxWidth = fun (){
+  i = 0;
+  width = 0;
+  while (Window.GetWidth(i)){
+    width = Math.Max(width, Window.GetWidth(i));
+    i++;
+    }
+  return width;
+};
+
+Window.GetMaxHeight = fun (){
+  i = 0;
+  height = 0;
+  while (Window.GetHeight(i)){
+    height = Math.Max(height, Window.GetHeight(i));
+    i++;
+    }
+  return height;
+};
+
+# Background
+background.original_image = ImageNew("background.png");
+Window.SetBackgroundTopColor(1.0, 1.0, 1.0);
+Window.SetBackgroundBottomColor(1.0, 1.0, 1.0);
+
+# Logo
+logo.original_image = ImageNew("monroe_logo_new_display.png");
+
+# Apply rotation if configured
+if (ROTATION_ANGLE != 0) {
+    logo.original_image = logo.original_image.Rotate(ROTATION_ANGLE);
+}
+
+# Helper that calculates scaling and centering relative to the ACTIVE window (with offset)
+fun position_logo ()
+{
+    screen_w = Window.GetWidth();
+    screen_h = Window.GetHeight();
+    screen_x = Window.GetX();
+    screen_y = Window.GetY();
+
+  // Dimensions of the already ROTATED image
+    img_w = logo.original_image.GetWidth();
+    img_h = logo.original_image.GetHeight();
+
+  // Max allowed dimensions relative to the window + safety margin
+    max_w = LOGO_SIZE * screen_w * SAFETY_FIT;
+    max_h = LOGO_SIZE * screen_h * SAFETY_FIT;
+
+  // Single scale factor (preserve aspect ratio)
+    scale_w = max_w / img_w;
+    scale_h = max_h / img_h;
+    scale   = Math.Min(scale_w, scale_h);
+
+  // Target dimensions as integers (avoid half-pixels and clipping)
+    target_width  = Math.Int(img_w * scale);
+    target_height = Math.Int(img_h * scale);
+
+    if (target_width < 1)  target_width = 1;
+    if (target_height < 1) target_height = 1;
+
+    logo.image = logo.original_image.Scale(target_width, target_height);
+    logo.sprite.SetImage(logo.image);
+
+  // Absolute centering in the active window (with offset)
+  cx = screen_x + Math.Int((screen_w - logo.image.GetWidth())  / 2);
+    cy = screen_y + Math.Int((screen_h - logo.image.GetHeight()) / 2);
+    logo.sprite.SetX(cx);
+    logo.sprite.SetY(cy);
+}
+
+# Initialize sprite and position
+logo.sprite = SpriteNew();
+position_logo();
+
+# Background for the same window (not Max)
+bg_w = Window.GetWidth();
+bg_h = Window.GetHeight();
+bg_x = Window.GetX();
+bg_y = Window.GetY();
+
+background.image = background.original_image.Scale(bg_w, bg_h);
+background.sprite = SpriteNew();
+background.sprite.SetImage(background.image);
+background.sprite.SetPosition(bg_x, bg_y, -10);
+
+fun refresh_callback ()
+{
+  // Rescale and recenter when resolution changes
+    position_logo();
+
+  // Refresh background for the current window
+    bg_w = Window.GetWidth();
+    bg_h = Window.GetHeight();
+    bg_x = Window.GetX();
+    bg_y = Window.GetY();
+
+    background.image = background.original_image.Scale(bg_w, bg_h);
+    background.sprite.SetImage(background.image);
+    background.sprite.SetPosition(bg_x, bg_y, -10);
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+#----------------------------------------- Quit --------------------------------
+
+fun quit_callback ()
+{
+  logo.sprite.SetOpacity(0);
+}
+
+Plymouth.SetQuitFunction(quit_callback);

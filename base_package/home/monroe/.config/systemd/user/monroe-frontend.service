@@ -1,0 +1,12 @@
+[Unit]
+Description=Monroe Frontend App
+After=graphical-session.target
+
+[Service]
+ExecStart=/opt/monroe-frontend/monroe-frontend
+Environment=DISPLAY=:0
+Environment=XDG_RUNTIME_DIR=%t
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

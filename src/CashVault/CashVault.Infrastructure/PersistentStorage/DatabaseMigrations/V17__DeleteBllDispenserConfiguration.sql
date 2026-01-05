@@ -1,0 +1,1 @@
+delete from "Configuration" where "Key" = 'BillDispenserConfiguration';

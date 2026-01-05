@@ -1,0 +1,1 @@
+UPDATE "MoneyStatus" SET "Version" = 1;

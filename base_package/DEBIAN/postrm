@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# if [ -f /opt/firebird/databases_backup.conf ]; then
+#   mv /opt/firebird/databases_backup.conf /opt/firebird/databases.conf
+# fi
+
+case "$1" in
+    remove|purge)
+        echo "Removing monroe-device-client package..."
+        systemctl reset-failed
+
+        # Cleanup early KMS
+        if [ -x /usr/local/monroe/scripts/cleanup-early-kms.sh ]; then
+            echo "Cleaning up early KMS configuration..."
+            /usr/local/monroe/scripts/cleanup-early-kms.sh || {
+                echo "Warning: Early KMS cleanup failed"
+            }
+        fi
+
+        # Cleanup Plymouth theme
+        if [ -x /usr/local/monroe/scripts/plymouth-cleanup.sh ]; then
+            echo "Cleaning up Plymouth splash screen..."
+            /usr/local/monroe/scripts/plymouth-cleanup.sh || {
+                echo "Warning: Plymouth theme cleanup failed"
+            }
+        fi
+
+        rm -rf /usr/local/bin/CashVault.WebAPI
+        # rm /etc/xdg/autostart/monroe-frontend.desktop # maybe needed in future, seems like it automatically removes itself
+        rm -rf /usr/share/CashVault.WebAPI/
+        rm -rf /usr/share/doc/monroe-frontend
+        find /usr/share/icons/hicolor -name "monroe-frontend.png" -delete
+        
+        # Remove scripts directory and Plymouth backup on purge
+        if [ "$1" = "purge" ]; then
+            rm -rf /usr/local/monroe/scripts
+            rm -f /usr/local/monroe/.plymouth-previous-theme
+        fi
+
+        # Optional: If we ever need to remove firebird and reinstall.
+        # Curently not needed because it's install script checks if it's already installed
+        # and reinstalls it.
+        
+        # echo "Removing Firebird..."
+        # sudo systemctl stop firebird.service || true
+        # sudo systemctl disable firebird.service
+        # sudo rm -rf /opt/firebird
+        # sudo rm -rf /usr/include/firebird
+        # sudo rm -rf /usr/include/ibase.h
+        # sudo rm -rf /usr/include/iberror.h
+        # sudo rm -rf /usr/include/ib_util.h
+        ;;
+esac

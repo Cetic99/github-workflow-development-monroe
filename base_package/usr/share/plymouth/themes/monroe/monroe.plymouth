@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Monroe Plymouth
+Description=A Plymouth of Monroe
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/monroe
+ScriptFile=/usr/share/plymouth/themes/monroe/monroe.script

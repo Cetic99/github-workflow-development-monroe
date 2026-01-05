@@ -1,0 +1,1 @@
+DELETE from "Configuration" WHERE "Key" = 'BillAcceptorConfiguration';

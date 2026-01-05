@@ -1,0 +1,60 @@
+lsusb returns:
+Bus 001 Device 006: ID 0596:0001 MicroTouch Systems, Inc. Touchscreen
+
+# <vendor>BNQ</vendor>
+#           <product>BenQ EW2430</product>
+#           <serial>00000000SL0</serial>
+          
+# gsettings set org.gnome.desktop.peripherals.touchscreen:/org/gnome/desktop/peripherals/touchscreens/0596:0001/ output "['BNQ', 'BenQ EW2430', '00000000SL0']"
+          
+# <vendor>KHH</vendor>
+#           <product>CRTtoLCD-5pro</product>
+#           <serial>210215131524</serial>
+# gsettings set org.gnome.desktop.peripherals.touchscreen:/org/gnome/desktop/peripherals/touchscreens/0596:0001/ output "['KHH', 'CRTtoLCD-5pro', '210215131524']"
+
+cat /home/monroe/.config/monitors.xml returns:
+<vendor>LCD</vendor>
+          <product> TFT LCD</product>
+          <serial>000001</serial>
+
+gsettings set org.gnome.desktop.peripherals.touchscreen:/org/gnome/desktop/peripherals/touchscreens/0596:0001/ output "['LCD', ' TFT LCD', '000001']"
+
+
+Device:
+sudo libinput list-devices | grep -A5 -i touch
+3M 3M USB Touchscreen - AGI
+
+Za osluškivanje eventa sa touch-a
+
+ sudo libinput debug-events --device /dev/input/event5
+
+# Po X osi
+# ATTRS{name}=="3M 3M USB Touchscreen - AGI", ENV{LIBINPUT_CALIBRATION_MATRIX}="-1 0 1 0 1 0 0 0 1"
+ 
+# Po Y osi
+# ATTRS{name}=="3M 3M USB Touchscreen - AGI", ENV{LIBINPUT_CALIBRATION_MATRIX}="1 0 0 0 -1 1 0 0 1"
+
+# ATTRS{name}=="3M 3M USB Touchscreen - AGI", ENV{LIBINPUT_CALIBRATION_MATRIX}="0.000088 0 -0.2136 0 -0.0000909 1.225 0 0 1"
+
+# ATTRS{name}=="3M 3M USB Touchscreen - AGI", ENV{LIBINPUT_CALIBRATION_MATRIX}="1 0 0 0 -1 1 0 0 1"
+
+create /etc/udev/rules.d/99-touch-flip.rules
+Add this to the file:
+ATTRS{name}=="3M 3M USB Touchscreen - AGI", ENV{LIBINPUT_CALIBRATION_MATRIX}="1.41852286161782 0 -0.202335049648664 0 -1.44324414521042 1.23606860823842 0 0 1"
+
+
+
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+sudo systemctl restart display-manager
+
+sudo libinput list-devices | grep -A5 -i Calibration
+# Section "InputClass"
+#     Identifier      "calibration"
+#     MatchProduct    "xwayland-touch:16"
+#     Option          "Coordinate Transformation Matrix"  "1.41852286161782 0 -0.202335049648664 0 -1.44324414521042 1.23606860823842 0 0 1"
+
+https://github.com/reinderien/xcalibrate
+
+
+TODO: ANALIZIRATI gschema.overrides

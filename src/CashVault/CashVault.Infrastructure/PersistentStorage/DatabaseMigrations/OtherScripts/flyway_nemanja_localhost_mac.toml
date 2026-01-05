@@ -1,0 +1,22 @@
+# Flyway TOML configuration file
+
+[environments.default]
+# Database connection settings
+url = "jdbc:firebirdsql://localhost:3050//Users/dragovicn/projects/cash-vault/firebird-local-dbs/test-database.fdb"
+user = "SYSDBA"
+password = "masterkey"
+
+[flyway]
+# Flyway locations for the migration scripts
+locations = ["filesystem:/Users/dragovicn/projects/cash-vault/src/CashVault/CashVault.Infrastructure/PersistentStorage/DatabaseMigrations"]
+
+# If false, files with invalid names are ignored and Flyway continues normally. If true, Flyway fails fast and lists the offending files.
+validateMigrationNaming = true
+# Enable validation of migrations
+validateOnMigrate = true
+# The table where Flyway tracks the version history of migrations
+table = "flyway_schema_history"
+# Optional, enable baseline on migration if the database is not empty
+baselineOnMigrate = true
+# Flyway will run each migration in its own transaction
+#group = true

@@ -1,0 +1,12 @@
+UPDATE "Message" SET "Value" = 'The language code is required.' WHERE "Key" = 'Potreban je kod jezika.';
+UPDATE "Message" SET "Value" = 'Authentication successfull' WHERE "Key" = 'Autentifikacija uspješna';
+UPDATE "Message" SET "Value" = 'Date of last report' WHERE "Key" = 'Datum posljednjeg izještaja';
+UPDATE "Message" SET "Value" = 'Machine name' WHERE "Key" = 'Ime mašine';
+UPDATE "Message" SET "Value" = 'Network' WHERE "Key" = 'Mreža';
+UPDATE "Message" SET "Value" = 'Regional' WHERE "Key" = 'Regionalna podešavanja';
+UPDATE "Message" SET "Value" = 'Daily media' WHERE "Key" = 'Dnevni izvještaj';
+UPDATE "Message" SET "Value" = 'Fail log' WHERE "Key" = 'Logovi grešaka';
+UPDATE "Message" SET "Value" = 'Maintenance' WHERE "Key" = 'Održavanje';
+UPDATE "Message" SET "Value" = 'Reports' WHERE "Key" = 'Izvještaji';
+UPDATE "Message" SET "Value" = 'All' WHERE "Key" = 'Svi';
+UPDATE "Message" SET "Value" = 'Money service' WHERE "Key" = 'Menadžment novca';

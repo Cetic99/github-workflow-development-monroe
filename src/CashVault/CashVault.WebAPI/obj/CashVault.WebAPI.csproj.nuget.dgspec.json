@@ -1,0 +1,1069 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.WebAPI/CashVault.WebAPI.csproj": {}
+  },
+  "projects": {
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillAcceptorDriver.ID003/CashVault.BillAcceptorDriver.ID003.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillAcceptorDriver.ID003/CashVault.BillAcceptorDriver.ID003.csproj",
+        "projectName": "CashVault.BillAcceptorDriver.ID003",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillAcceptorDriver.ID003/CashVault.BillAcceptorDriver.ID003.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillAcceptorDriver.ID003/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillDispenserDriver.JCM.F53/CashVault.BillDispenserDriver.JCM.F53.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillDispenserDriver.JCM.F53/CashVault.BillDispenserDriver.JCM.F53.csproj",
+        "projectName": "CashVault.BillDispenserDriver.JCM.F53",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillDispenserDriver.JCM.F53/CashVault.BillDispenserDriver.JCM.F53.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillDispenserDriver.JCM.F53/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj",
+        "projectName": "CashVault.Application",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.2, )"
+            },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.9.2, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.2.0, )"
+            },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "NodaTime": {
+              "target": "Package",
+              "version": "[3.2.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.BillAcceptorDriver.NV10/CashVault.BillAcceptorDriver.NV10.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.BillAcceptorDriver.NV10/CashVault.BillAcceptorDriver.NV10.csproj",
+        "projectName": "CashVault.BillAcceptorDriver.NV10",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.BillAcceptorDriver.NV10/CashVault.BillAcceptorDriver.NV10.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.BillAcceptorDriver.NV10/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ccTalk/CashVault.ccTalk.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ccTalk/CashVault.ccTalk.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CabinetControlUnitDriver/CashVault.CabinetControlUnitDriver.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CabinetControlUnitDriver/CashVault.CabinetControlUnitDriver.csproj",
+        "projectName": "CashVault.CabinetControlUnitDriver",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CabinetControlUnitDriver/CashVault.CabinetControlUnitDriver.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CabinetControlUnitDriver/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CoinAcceptorDriver.RM5HD/CashVault.CoinAcceptorDriver.RM5HD.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CoinAcceptorDriver.RM5HD/CashVault.CoinAcceptorDriver.RM5HD.csproj",
+        "projectName": "CashVault.CoinAcceptorDriver.RM5HD",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CoinAcceptorDriver.RM5HD/CashVault.CoinAcceptorDriver.RM5HD.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CoinAcceptorDriver.RM5HD/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ccTalk/CashVault.ccTalk.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ccTalk/CashVault.ccTalk.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj",
+        "projectName": "CashVault.Domain",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.2.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "NodaTime": {
+              "target": "Package",
+              "version": "[3.2.2, )"
+            },
+            "System.IO.Ports": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Infrastructure/CashVault.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Infrastructure/CashVault.Infrastructure.csproj",
+        "projectName": "CashVault.Infrastructure",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Infrastructure/CashVault.Infrastructure.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillAcceptorDriver.ID003/CashVault.BillAcceptorDriver.ID003.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillAcceptorDriver.ID003/CashVault.BillAcceptorDriver.ID003.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillDispenserDriver.JCM.F53/CashVault.BillDispenserDriver.JCM.F53.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/BillDispenserDriver.JCM.F53/CashVault.BillDispenserDriver.JCM.F53.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.BillAcceptorDriver.NV10/CashVault.BillAcceptorDriver.NV10.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.BillAcceptorDriver.NV10/CashVault.BillAcceptorDriver.NV10.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CabinetControlUnitDriver/CashVault.CabinetControlUnitDriver.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CabinetControlUnitDriver/CashVault.CabinetControlUnitDriver.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CoinAcceptorDriver.RM5HD/CashVault.CoinAcceptorDriver.RM5HD.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.CoinAcceptorDriver.RM5HD/CashVault.CoinAcceptorDriver.RM5HD.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ParcelLockerDriver/CashVault.ParcelLockerDriver.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ParcelLockerDriver/CashVault.ParcelLockerDriver.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.TicketPrinterDriver.FutureLogic/CashVault.TicketPrinterDriver.FutureLogic.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.TicketPrinterDriver.FutureLogic/CashVault.TicketPrinterDriver.FutureLogic.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.UserCardReaderDriver.ACR1252U/CashVault.UserCardReaderDriver.ACR1252U.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.UserCardReaderDriver.ACR1252U/CashVault.UserCardReaderDriver.ACR1252U.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FirebirdSql.Data.FirebirdClient": {
+              "target": "Package",
+              "version": "[10.3.1, )"
+            },
+            "FirebirdSql.EntityFrameworkCore.Firebird": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
+            "Microsoft.AspNetCore.SignalR": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.Extensions.Hosting.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "System.IO.Ports": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ParcelLockerDriver/CashVault.ParcelLockerDriver.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ParcelLockerDriver/CashVault.ParcelLockerDriver.csproj",
+        "projectName": "CashVault.ParcelLockerDriver",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ParcelLockerDriver/CashVault.ParcelLockerDriver.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ParcelLockerDriver/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.TicketPrinterDriver.FutureLogic/CashVault.TicketPrinterDriver.FutureLogic.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.TicketPrinterDriver.FutureLogic/CashVault.TicketPrinterDriver.FutureLogic.csproj",
+        "projectName": "CashVault.TicketPrinterDriver.FutureLogic",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.TicketPrinterDriver.FutureLogic/CashVault.TicketPrinterDriver.FutureLogic.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.TicketPrinterDriver.FutureLogic/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.UserCardReaderDriver.ACR1252U/CashVault.UserCardReaderDriver.ACR1252U.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.UserCardReaderDriver.ACR1252U/CashVault.UserCardReaderDriver.ACR1252U.csproj",
+        "projectName": "CashVault.UserCardReaderDriver.ACR1252U",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.UserCardReaderDriver.ACR1252U/CashVault.UserCardReaderDriver.ACR1252U.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.UserCardReaderDriver.ACR1252U/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "PCSC": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.WebAPI/CashVault.WebAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.WebAPI/CashVault.WebAPI.csproj",
+        "projectName": "CashVault.WebAPI",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.WebAPI/CashVault.WebAPI.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.WebAPI/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Application/CashVault.Application.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Infrastructure/CashVault.Infrastructure.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Infrastructure/CashVault.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Serilog.Expressions": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog.Sinks.Http": {
+              "target": "Package",
+              "version": "[9.1.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.osx-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.linux-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.linux-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.osx-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[8.0.22, 8.0.22]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "linux-x64": {
+          "#import": []
+        },
+        "osx-x64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ccTalk/CashVault.ccTalk.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ccTalk/CashVault.ccTalk.csproj",
+        "projectName": "CashVault.ccTalk",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ccTalk/CashVault.ccTalk.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.ccTalk/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/CashVault.Domain.csproj"
+              },
+              "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj": {
+                "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj",
+        "projectName": "CashVault.DeviceDriver.Common",
+        "projectPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/CashVault.DeviceDriver.Common.csproj",
+        "packagesPath": "/home/nikolacetic/.nuget/packages/",
+        "outputPath": "/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/nikolacetic/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "System.IO.Ports": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

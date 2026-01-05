@@ -1,0 +1,213 @@
+<Window x:Class="NFC_card_tool.ReadResultWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     Title="Card Read Results"
+     Height="700"
+        Width="650"
+      WindowStartupLocation="CenterOwner"
+    ResizeMode="CanResizeWithGrip"
+      MinHeight="500"
+MinWidth="550"
+        Background="#F5F5F5">
+
+  <Window.Resources>
+  <Style x:Key="SectionHeader" TargetType="TextBlock">
+       <Setter Property="FontSize" Value="15"/>
+     <Setter Property="FontWeight" Value="SemiBold"/>
+   <Setter Property="Foreground" Value="#0D8472"/>
+  <Setter Property="Margin" Value="0,15,0,10"/>
+     </Style>
+  
+   <Style x:Key="DataLabel" TargetType="TextBlock">
+  <Setter Property="FontSize" Value="12"/>
+ <Setter Property="FontWeight" Value="SemiBold"/>
+    <Setter Property="Foreground" Value="#0F3A34"/>
+  <Setter Property="Width" Value="150"/>
+     </Style>
+   
+  <Style x:Key="DataValue" TargetType="TextBlock">
+ <Setter Property="FontSize" Value="12"/>
+    <Setter Property="Foreground" Value="#2C6B62"/>
+   <Setter Property="FontFamily" Value="Consolas"/>
+     <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+      <Style x:Key="ActionButton" TargetType="Button">
+<Setter Property="Background" Value="#0D8472"/>
+   <Setter Property="Foreground" Value="White"/>
+ <Setter Property="FontSize" Value="14"/>
+   <Setter Property="FontWeight" Value="SemiBold"/>
+   <Setter Property="Padding" Value="20,10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+      <Setter.Value>
+       <ControlTemplate TargetType="Button">
+         <Border Background="{TemplateBinding Background}"
+          CornerRadius="6"
+        Padding="{TemplateBinding Padding}">
+      <ContentPresenter HorizontalAlignment="Center"
+     VerticalAlignment="Center"/>
+ </Border>
+      </ControlTemplate>
+     </Setter.Value>
+  </Setter>
+     <Style.Triggers>
+<Trigger Property="IsMouseOver" Value="True">
+  <Setter Property="Background" Value="#0A6B5D"/>
+     </Trigger>
+  </Style.Triggers>
+ </Style>
+    </Window.Resources>
+
+    <Border Background="White" Margin="20" CornerRadius="8">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+   HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Margin="30">
+ <!-- Title -->
+       <TextBlock Text="NFC Card Analysis Results"
+ FontSize="22"
+ FontWeight="SemiBold"
+    Foreground="#0D8472"
+  HorizontalAlignment="Center"
+   Margin="0,0,0,20"/>
+
+<!-- Card Image/Icon -->
+      <Border Width="80"
+Height="80"
+ Background="#2BD6B5"
+    CornerRadius="8"
+    Margin="0,0,0,20"
+  HorizontalAlignment="Center">
+   <Viewbox Width="50" Height="50">
+       <Canvas Width="24" Height="24">
+     <Path Fill="White"
+    Data="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                </Canvas>
+    </Viewbox>
+  </Border>
+
+      <!-- Identification Section -->
+      <TextBlock Text="IDENTIFICATION" Style="{StaticResource SectionHeader}"/>
+ <Border Background="#F8F9FA" CornerRadius="6" Padding="15" Margin="0,0,0,10">
+         <StackPanel>
+<StackPanel Orientation="Horizontal" Margin="0,5">
+       <TextBlock Text="UID:" Style="{StaticResource DataLabel}"/>
+      <TextBlock x:Name="UidText" Style="{StaticResource DataValue}"/>
+              </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="0,5">
+ <TextBlock Text="UID Length:" Style="{StaticResource DataLabel}"/>
+     <TextBlock x:Name="UidLengthText" Style="{StaticResource DataValue}"/>
+     </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="0,5">
+       <TextBlock Text="Card Type:" Style="{StaticResource DataLabel}"/>
+    <TextBlock x:Name="CardTypeText" Style="{StaticResource DataValue}"/>
+ </StackPanel>
+     </StackPanel>
+   </Border>
+
+            <!-- Technical Specifications -->
+      <TextBlock Text="TECHNICAL SPECIFICATIONS" Style="{StaticResource SectionHeader}"/>
+    <Border Background="#F8F9FA" CornerRadius="6" Padding="15" Margin="0,0,0,10">
+  <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,5">
+       <TextBlock Text="ATR:" Style="{StaticResource DataLabel}"/>
+  <TextBlock x:Name="AtrText" Style="{StaticResource DataValue}"/>
+    </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="0,5">
+ <TextBlock Text="Protocol:" Style="{StaticResource DataLabel}"/>
+     <TextBlock x:Name="ProtocolText" Style="{StaticResource DataValue}"/>
+     </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="0,5">
+         <TextBlock Text="Memory:" Style="{StaticResource DataLabel}"/>
+    <TextBlock x:Name="MemoryText" Style="{StaticResource DataValue}"/>
+     </StackPanel>
+     </StackPanel>
+   </Border>
+
+   <!-- Card Status -->
+      <TextBlock Text="CARD STATUS" Style="{StaticResource SectionHeader}"/>
+    <Border Background="#F8F9FA" CornerRadius="6" Padding="15" Margin="0,0,0,10">
+         <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,5">
+       <TextBlock Text="Factory State:" Style="{StaticResource DataLabel}"/>
+  <TextBlock x:Name="FactoryStateText" Style="{StaticResource DataValue}"/>
+    </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="0,5">
+ <TextBlock Text="Lock Status:" Style="{StaticResource DataLabel}"/>
+     <TextBlock x:Name="LockStatusText" Style="{StaticResource DataValue}"/>
+     </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="0,5">
+         <TextBlock Text="Used Blocks:" Style="{StaticResource DataLabel}"/>
+    <TextBlock x:Name="UsedBlocksText" Style="{StaticResource DataValue}"/>
+     </StackPanel>
+     </StackPanel>
+   </Border>
+
+   <!-- User Authentication -->
+      <TextBlock Text="USER DATA" Style="{StaticResource SectionHeader}"/>
+    <Border x:Name="UserDataBorder" Background="#F8F9FA" 
+     CornerRadius="6" Padding="15" Margin="0,0,0,10">
+         <StackPanel>
+        <StackPanel x:Name="NoDataPanel" Visibility="Visible">
+       <TextBlock Text="No user data found on card" 
+    Style="{StaticResource DataValue}"
+     FontStyle="Italic"
+       Foreground="#999999"/>
+    </StackPanel>
+      
+ <StackPanel x:Name="UserDataPanel" Visibility="Collapsed">
+   <TextBlock Text="Card contains user data:" 
+        Style="{StaticResource DataLabel}"
+   Margin="0,0,0,10"/>
+   
+        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+     <TextBox x:Name="UserDataTextBox"
+        IsReadOnly="True"
+     TextWrapping="Wrap"
+   FontFamily="Consolas"
+         FontSize="11"
+       Background="White"
+    BorderBrush="#D1D1D1"
+        BorderThickness="1"
+       Padding="10"/>
+ </ScrollViewer>
+      
+    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+    <TextBlock Text="Data Location: " 
+   Style="{StaticResource DataLabel}"
+       Width="Auto"
+      Margin="0,0,5,0"/>
+       <TextBlock x:Name="DataLocationText" 
+    Style="{StaticResource DataValue}"/>
+    </StackPanel>
+ </StackPanel>
+     </StackPanel>
+   </Border>
+
+   <!-- Action Buttons -->
+     <Grid Margin="0,20,0,0">
+ <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="*"/>
+ <ColumnDefinition Width="*"/>
+   </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0"
+    Content="Copy to Clipboard"
+      Style="{StaticResource ActionButton}"
+   Click="CopyButton_Click"
+       Margin="0,0,5,0"
+   Height="45"/>
+
+   <Button Grid.Column="1"
+    Content="Close"
+     Style="{StaticResource ActionButton}"
+  Background="#6C757D"
+     Click="CloseButton_Click"
+  Margin="5,0,0,0"
+   Height="45"/>
+            </Grid>
+      </StackPanel>
+       </ScrollViewer>
+    </Border>
+</Window>

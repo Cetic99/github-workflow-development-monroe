@@ -1,0 +1,11 @@
+#!/bin/bash
+systemctl stop monroe-backbone.service || true
+systemctl disable monroe-backbone.service || true
+
+# Stop and disable monroe-frontend user service
+MONROE_UID=$(id -u monroe 2>/dev/null)
+if [ -n "$MONROE_UID" ] && [ -d "/run/user/$MONROE_UID" ]; then
+    echo "Stopping and disabling monroe-frontend service..."
+    sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user stop monroe-frontend.service 2>/dev/null || true
+    sudo -u monroe XDG_RUNTIME_DIR=/run/user/$MONROE_UID systemctl --user disable monroe-frontend.service 2>/dev/null || true
+fi

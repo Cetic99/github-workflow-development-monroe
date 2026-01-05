@@ -1,0 +1,32 @@
+[2026-01-05 17:17:15 INF] Program - Starting CashVault core...
+[2026-01-05 17:17:17 WRN] Microsoft.EntityFrameworkCore.Model.Validation - The entity type 'ParcelLockerShipment.Address#Address' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+[2026-01-05 17:17:17 WRN] Microsoft.EntityFrameworkCore.Model.Validation - The entity type 'ParcelLockerShipment.Reciever#ShipmentParty' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+[2026-01-05 17:17:17 WRN] Microsoft.EntityFrameworkCore.Model.Validation - The entity type 'ParcelLockerShipment.Sender#ShipmentParty' is an optional dependent using table sharing without any required non shared property that could be used to identify whether the entity exists. If all nullable properties contain a null value in database then an object instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the incoming navigation as required to always create an instance.
+[2026-01-05 17:17:17 ERR] Microsoft.EntityFrameworkCore.Database.Connection - An error occurred using the connection to database 'cashvault' on server 'localhost'.
+[2026-01-05 17:17:17 ERR] Program - Database is not available.
+[2026-01-05 17:17:17 ERR] Program - Infrastructure prerequisites check failed.
+[2026-01-05 17:17:17 FTL] Program - Application terminated unexpectedly.
+FirebirdSql.Data.FirebirdClient.FbException (0x80004005): Unable to complete network request to host "localhost".
+ ---> FirebirdSql.Data.Common.IscException: Unable to complete network request to host "localhost".
+ ---> System.Net.Sockets.SocketException (111): Connection refused 127.0.0.1:3050
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Connect(EndPoint remoteEP)
+   at FirebirdSql.Data.Client.Managed.GdsConnection.Connect()
+   --- End of inner exception stack trace ---
+   at FirebirdSql.Data.Client.Managed.GdsConnection.Connect()
+   at FirebirdSql.Data.Client.ClientFactory.CreateManagedDatabase(ConnectionString options)
+   at FirebirdSql.Data.Client.ClientFactory.CreateDatabase(ConnectionString options)
+   at FirebirdSql.Data.FirebirdClient.FbConnectionInternal.Connect()
+   at FirebirdSql.Data.FirebirdClient.FbConnectionInternal.Connect()
+   at FirebirdSql.Data.FirebirdClient.FbConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.<>c.<OpenConnection>b__22_0(DatabaseFacade database)
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c__DisplayClass12_0`2.<Execute>b__0(DbContext _, TState s)
+   at Microsoft.EntityFrameworkCore.Storage.NonRetryingExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.Execute[TState,TResult](IExecutionStrategy strategy, TState state, Func`2 operation, Func`2 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.OpenConnection(DatabaseFacade databaseFacade)
+   at CashVault.Infrastructure.ConfigureServices.CheckDatabaseIsAvailable(IServiceProvider services, ILogger logger) in /home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Infrastructure/ConfigureServices.cs:line 76
+   at CashVault.Infrastructure.ConfigureServices.CheckInfrastructurePrerequisites(IServiceProvider services, ILogger logger) in /home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Infrastructure/ConfigureServices.cs:line 58
+   at Program.<Main>$(String[] args) in /home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.WebAPI/Program.cs:line 138

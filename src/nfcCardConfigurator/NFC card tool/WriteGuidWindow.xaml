@@ -1,0 +1,255 @@
+<Window x:Class="NFC_card_tool.WriteGuidWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Write Data to Card"
+     Height="780"
+ Width="650"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResizeWithGrip"
+        MinHeight="580"
+        MinWidth="550"
+     Background="#F5F5F5">
+
+    <Window.Resources>
+    <Style x:Key="ActionButton" TargetType="Button">
+<Setter Property="Background" Value="#0D8472"/>
+     <Setter Property="Foreground" Value="White"/>
+ <Setter Property="FontSize" Value="14"/>
+   <Setter Property="FontWeight" Value="SemiBold"/>
+   <Setter Property="Padding" Value="20,10"/>
+   <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Cursor" Value="Hand"/>
+ <Setter Property="Template">
+      <Setter.Value>
+       <ControlTemplate TargetType="Button">
+    <Border Background="{TemplateBinding Background}"
+  CornerRadius="6"
+        Padding="{TemplateBinding Padding}">
+    <ContentPresenter HorizontalAlignment="Center"
+   VerticalAlignment="Center"/>
+      </Border>
+      </ControlTemplate>
+     </Setter.Value>
+  </Setter>
+ <Style.Triggers>
+<Trigger Property="IsEnabled" Value="False">
+  <Setter Property="Opacity" Value="0.6"/>
+  </Trigger>
+    <Trigger Property="IsMouseOver" Value="True">
+  <Setter Property="Background" Value="#0A6B5D"/>
+     </Trigger>
+  </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="White" Margin="20" CornerRadius="8">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+   HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Margin="30">
+ <!-- Title -->
+            <TextBlock Text="Write User Data to NFC Card"
+     FontSize="22"
+    FontWeight="SemiBold"
+  Foreground="#0D8472"
+    HorizontalAlignment="Center"
+  Margin="0,0,0,8"/>
+
+      <TextBlock Text="Serial number and unique identifier for user authentication"
+   FontSize="13"
+Foreground="#2C6B62"
+   HorizontalAlignment="Center"
+     Margin="0,0,0,25"/>
+
+          <!-- Card Info -->
+         <Border Background="#F9F9F9" 
+   CornerRadius="6" 
+  Padding="15" 
+   Margin="0,0,0,20">
+<StackPanel>
+  <TextBlock Text="Card Information" 
+  FontWeight="SemiBold" 
+  Margin="0,0,0,10"/>
+   
+    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+          <TextBlock Text="UID: " FontWeight="SemiBold" Width="100"/>
+          <TextBlock x:Name="CardUidText" 
+     Text="Not detected" 
+  FontFamily="Consolas"/>
+   </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+         <TextBlock Text="Type: " FontWeight="SemiBold" Width="100"/>
+        <TextBlock x:Name="CardTypeText" Text="Unknown"/>
+   </StackPanel>
+      
+ <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+  <TextBlock Text="Status: " FontWeight="SemiBold" Width="100"/>
+   <TextBlock x:Name="CardStatusText" Text="Ready"/>
+        </StackPanel>
+             </StackPanel>
+     </Border>
+
+            <!-- Serial Number Section -->
+    <Border Background="#D1F2ED" 
+      BorderBrush="#2BD6B5"
+  BorderThickness="2"
+     CornerRadius="8" 
+         Padding="15" 
+         Margin="0,0,0,15">
+      <StackPanel>
+    <TextBlock Text="Serial Number (8 digits)" 
+FontWeight="SemiBold" 
+         Foreground="#0F3A34"
+     Margin="0,0,0,10"/>
+   
+      <TextBox x:Name="SerialNumberTextBox"
+  FontFamily="Consolas"
+FontSize="18"
+FontWeight="Bold"
+            Foreground="#000000"
+         TextAlignment="Center"
+      Padding="15,10"
+    MinHeight="50"
+          Background="White"
+        BorderBrush="#2BD6B5"
+        BorderThickness="1"
+  MaxLength="8"
+ TextChanged="SerialNumberTextBox_TextChanged"/>
+            
+        <TextBlock x:Name="SerialNumberHintText"
+       Text="Enter 8-digit serial number (e.g., 12345678)"
+   FontSize="11"
+  Foreground="#2C6B62"
+HorizontalAlignment="Center"
+     Margin="0,5,0,0"/>
+  </StackPanel>
+ </Border>
+
+    <!-- GUID Section -->
+    <Border Background="#D1F2ED" 
+  BorderBrush="#2BD6B5"
+ BorderThickness="2"
+CornerRadius="8" 
+      Padding="15" 
+ Margin="0,0,0,20">
+  <StackPanel>
+       <TextBlock Text="User Authentication GUID" 
+     FontWeight="SemiBold" 
+   Foreground="#0F3A34"
+   Margin="0,0,0,10"/>
+ 
+   <TextBox x:Name="GuidTextBox"
+   FontFamily="Consolas"
+  FontSize="16"
+  FontWeight="Bold"
+Foreground="#000000"
+ IsReadOnly="True"
+   TextAlignment="Center"
+   TextWrapping="Wrap"
+      Padding="15,10"
+  MinHeight="50"
+     Background="White"
+  BorderBrush="#2BD6B5"
+   BorderThickness="1"/>
+     
+     <Button x:Name="GenerateGuidButton"
+       Content="Generate New GUID"
+  Style="{StaticResource ActionButton}"
+      Click="GenerateGuidButton_Click"
+  HorizontalAlignment="Center"
+     Margin="0,15,0,0"/>
+ </StackPanel>
+       </Border>
+
+            <!-- Writing Info -->
+          <Border Background="#FFF4E5"
+ BorderBrush="#FFA726"
+     BorderThickness="1"
+       CornerRadius="6"
+          Padding="15"
+          Margin="0,0,0,20">
+      <StackPanel>
+         <TextBlock Text="⚠ Important Information" 
+ FontWeight="Bold" 
+    Foreground="#F57C00"
+Margin="0,0,0,10"/>
+    <TextBlock x:Name="WriteInfoText"
+    TextWrapping="Wrap" 
+    FontSize="12" 
+        Foreground="#E65100">
+  - Serial number and GUID will be written to user memory<LineBreak/>
+           - Format: SERIAL-GUID (e.g., 12345678-550e8400-e29b-41d4-a716-446655440000)<LineBreak/>
+- This data will uniquely identify the user<LineBreak/>
+  - Save both values to your database for authentication<LineBreak/>
+  - Card must remain on reader during write operation
+    </TextBlock>
+        </StackPanel>
+  </Border>
+
+         <!-- Warning -->
+        <Border Background="#FFF3E0"
+  BorderBrush="#FF9800"
+     BorderThickness="2"
+ CornerRadius="8"
+  Padding="18"
+ Margin="0,0,0,25">
+  <StackPanel>
+          <TextBlock Text="⚠️ Important" 
+       FontSize="14"
+    FontWeight="Bold" 
+   Foreground="#F57C00"
+      Margin="0,0,0,10"/>
+     <TextBlock TextWrapping="Wrap" 
+      FontSize="12" 
+  Foreground="#E65100">
+         • Serial + GUID will be written to card<LineBreak/>
+    • Make sure the Serial Number is unique<LineBreak/>
+    • You can copy data to clipboard after writing
+ </TextBlock>
+   </StackPanel>
+         </Border>
+
+ <!-- Action Buttons -->
+        <Grid Margin="0,10,0,0">
+ <Grid.ColumnDefinitions>
+  <ColumnDefinition Width="*"/>
+   <ColumnDefinition Width="*"/>
+   </Grid.ColumnDefinitions>
+
+  <Button x:Name="WriteButton"
+   Grid.Column="0"
+      Content="Write to Card"
+           Style="{StaticResource ActionButton}"
+ Click="WriteButton_Click"
+    Margin="0,0,5,0"
+   Height="45"
+         IsEnabled="False"/>
+
+      <Button Grid.Column="1"
+    Content="Cancel"
+      Style="{StaticResource ActionButton}"
+   Background="#666666"
+  Click="CancelButton_Click"
+  Margin="5,0,0,0"
+     Height="45"/>
+    </Grid>
+
+  <!-- Progress -->
+    <StackPanel x:Name="ProgressPanel" 
+   Visibility="Collapsed" 
+ Margin="0,20,0,0">
+<ProgressBar Height="10" 
+       IsIndeterminate="True"
+ Foreground="#2BD6B5"/>
+<TextBlock x:Name="ProgressText"
+     Text="Writing to card..."
+ HorizontalAlignment="Center"
+  Margin="0,10,0,0"
+  FontSize="12"
+  Foreground="#2C6B62"/>
+ </StackPanel>
+      </StackPanel>
+      </ScrollViewer>
+    </Border>
+</Window>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Display</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        #message {
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <video id="video" autoplay loop muted style="display: none;">
+        Your browser does not support the video tag.
+    </video>
+    <div id="message">Loading marketing content...</div>
+    
+    <script>
+        const { ipcRenderer } = require('electron');
+        
+        // Request video path from main process
+        ipcRenderer.invoke('marketing:getVideoPath').then(videoPath => {
+            const video = document.getElementById('video');
+            const message = document.getElementById('message');
+            
+            if (videoPath && videoPath.trim() !== '') {
+                video.src = `file://${videoPath}`;
+                
+                video.onloadeddata = () => {
+                    message.style.display = 'none';
+                    video.style.display = 'block';
+                    video.play().catch(err => {
+                        console.error('Error playing video:', err);
+                        message.textContent = 'Error loading video';
+                        message.style.display = 'block';
+                    });
+                };
+                
+                video.onerror = () => {
+                    message.textContent = 'Video file not found or invalid';
+                    message.style.display = 'block';
+                };
+            } else {
+                message.textContent = 'No video configured';
+            }
+        }).catch(err => {
+            console.error('Error getting video path:', err);
+            document.getElementById('message').textContent = 'Configuration error';
+        });
+    </script>
+</body>
+</html>

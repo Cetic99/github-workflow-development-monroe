@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="10.3.1" />
+    <PackageReference Include="FirebirdSql.EntityFrameworkCore.Firebird" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BillAcceptorDriver.ID003\CashVault.BillAcceptorDriver.ID003.csproj" />
+    <ProjectReference Include="..\BillDispenserDriver.JCM.F53\CashVault.BillDispenserDriver.JCM.F53.csproj" />
+    <ProjectReference Include="..\CashVault.Application\CashVault.Application.csproj" />
+    <ProjectReference Include="..\CashVault.BillAcceptorDriver.NV10\CashVault.BillAcceptorDriver.NV10.csproj" />
+    <ProjectReference Include="..\CashVault.CoinAcceptorDriver.RM5HD\CashVault.CoinAcceptorDriver.RM5HD.csproj" />
+    <ProjectReference Include="..\CashVault.Domain\CashVault.Domain.csproj" />
+    <ProjectReference Include="..\CashVault.ParcelLockerDriver\CashVault.ParcelLockerDriver.csproj" />
+    <ProjectReference Include="..\CashVault.TicketPrinterDriver.FutureLogic\CashVault.TicketPrinterDriver.FutureLogic.csproj" />
+    <ProjectReference Include="..\CashVault.CabinetControlUnitDriver\CashVault.CabinetControlUnitDriver.csproj" />
+    <ProjectReference Include="..\CashVault.UserCardReaderDriver.ACR1252U\CashVault.UserCardReaderDriver.ACR1252U.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="PersistentStorage\DatabaseMigrations\V61__ParcelLockerConfigurations.sql">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

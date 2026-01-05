@@ -1,0 +1,7 @@
+Package: monroe-backbone
+Version: 1.0.0
+Section: web
+Priority: optional
+Architecture: arm64
+Maintainer: Nemanja Dragović <nemanja-d@hotmail.com>
+Description: Monroe backbone .NET Web API packaged as a Debian package

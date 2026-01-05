@@ -1,0 +1,11 @@
+[Unit]
+Description=Enable Monroe GNOME extensions
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/gnome-extensions enable disable-fullscreen-gesture@monroe
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

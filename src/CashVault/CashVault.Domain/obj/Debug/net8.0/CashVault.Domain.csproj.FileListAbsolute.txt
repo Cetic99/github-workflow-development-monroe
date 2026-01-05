@@ -1,0 +1,13 @@
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/bin/Debug/net8.0/CashVault.Domain.deps.json
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/bin/Debug/net8.0/CashVault.Domain.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/bin/Debug/net8.0/CashVault.Domain.pdb
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/CashVault.Domain.csproj.AssemblyReference.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/CashVault.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/CashVault.Domain.AssemblyInfoInputs.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/CashVault.Domain.AssemblyInfo.cs
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/CashVault.Domain.csproj.CoreCompileInputs.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/CashVault.Domain.sourcelink.json
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/CashVault.Domain.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/refint/CashVault.Domain.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/CashVault.Domain.pdb
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/CashVault.Domain/obj/Debug/net8.0/ref/CashVault.Domain.dll

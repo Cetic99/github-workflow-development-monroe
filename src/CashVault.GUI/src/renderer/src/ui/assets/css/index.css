@@ -1,0 +1,377 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background-size: cover;
+  background: transparent;
+  user-select: none;
+}
+
+#root {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* Colors */
+
+:root {
+  --primary-dark: #1d4a3e;
+  --primary-medium: #0e7465;
+  --primary-light: #c8f8b0;
+
+  --secondary-dark: #0d8472;
+  --secondary-light: white;
+
+  --error-dark: #d33a3a;
+  --error-light: white;
+
+  --text-default: #6a6a6a;
+  --text-dark: black;
+  --text-medium: #97aa8b;
+  --text-light: white;
+  --text-inactive-dark: #515151;
+
+  --border-dark: #97aa8b;
+  --border-light: #9fc4be;
+
+  --bg-dark: #ccd4c7;
+  --bg-medium: #e7ece4;
+  --bg-light: #f4f8f2;
+  --bg-main: #030303;
+  --bg-gray-medium: #d0d8cc;
+
+  --bg-divider: #c2d5b6;
+
+  --border-radius: 14px;
+  --border-radius-input: 14px;
+  --border-dark: #8ab9ad;
+
+  --disabled-bg: #97aa8b60;
+  --info-bg: #dceaff;
+  --error-bg: #e0c6c6;
+  --warning-bg: #fae7cb;
+
+  font-size: 16px;
+  background-color: var(--bg-medium);
+
+  @media (max-height: 832px) {
+    font-size: 12px;
+  }
+}
+
+/* Poppins Regular */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Poppins Italic */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Poppins Light */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Poppins Light Italic */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Poppins Medium */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Poppins Medium Italic */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Poppins SemiBold */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Poppins SemiBold Italic */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Poppins Bold */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Poppins Bold Italic */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Poppins ExtraBold */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* Poppins ExtraBold Italic */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* Poppins Black */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Poppins Black Italic */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+/* Poppins ExtraLight */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* Poppins ExtraLight Italic */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-ExtraLightItalic.ttf') format('truetype');
+  font-weight: 200;
+  font-style: italic;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Notifications */
+
+:root {
+  --toastify-toast-padding: 1rem 1rem 1rem 1rem;
+  --toastify-toast-width: 480px;
+  --toastify-toast-bd-radius: 0.625rem;
+
+  --toastify-color-success: #ccd4c7;
+  --toastify-text-color-success: #0d8472;
+
+  --toastify-color-error: #e0c6c6;
+  --toastify-text-color-error: #d33a3a;
+
+  --toastify-color-warning: #fae7cb;
+  --toastify-text-color-warning: #bd7f21;
+
+  --toastify-color-info: #dceaff;
+  --toastify-text-color-info: #367bdb;
+}
+
+.Toastify__toast-icon {
+  width: 50px;
+}
+
+.Toastify__toast {
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: -3%;
+}
+
+.Toastify__close-button {
+  display: none;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.react-select-container * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* WebKit browsers (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #d6ddd1;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary-medium);
+  border-radius: 10px;
+}
+
+.bg-image-container.wave-exit-up {
+  animation: waveOutUp 0.5s forwards;
+}
+
+.bg-image-container.wave-exit-down {
+  animation: waveOutDown 0.5s forwards;
+}
+
+.wave-element.wave-exit-down {
+  animation: waveOutDown 0.5s forwards;
+}
+
+.wave-element.wave-exit-up {
+  animation: waveOutUpFromBottom 0.5s forwards;
+}
+
+.wave-element.wave-exit-up .filler {
+  background-color: var(--bg-medium);
+  top: 3.5rem;
+}
+
+.wave-element.wave-exit-up .wave-svg {
+  top: 0;
+  bottom: unset;
+}
+
+.wave-element.wave-exit-up .element-content {
+  background-color: var(--bg-medium);
+  top: 3.5rem;
+}
+
+.wave-element.wave-exit-up .element-content .logo-container {
+  top: 0;
+  bottom: unset;
+}
+
+.logo.logo-exit {
+  animation: fadeOut 0.3s forwards;
+}
+.bg-logo.logo-enter {
+  animation: fadeIn 0.3s forwards;
+}
+.wave-element.wave-exit-down ~ .logo-container,
+.wave-element.wave-exit-down + .logo-container {
+  bottom: -7rem;
+  top: unset;
+}
+
+@keyframes waveOutDown {
+  from {
+    height: 6.375rem;
+  }
+  to {
+    height: 87vh;
+  }
+}
+@keyframes waveOutUp {
+  from {
+    transform: translateY(0) scaleY(1);
+  }
+  to {
+    transform: translateY(-85%);
+  }
+}
+@keyframes fadeOut {
+  from {
+    transform: unset;
+    opacity: 1;
+  }
+  to {
+    transform: translateY(30%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-30%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes waveOutUpFromBottom {
+  from {
+    height: 6.375rem;
+  }
+  to {
+    height: 82vh;
+  }
+}

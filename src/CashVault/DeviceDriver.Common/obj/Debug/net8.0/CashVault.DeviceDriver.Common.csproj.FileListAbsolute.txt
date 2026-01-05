@@ -1,0 +1,13 @@
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/bin/Debug/net8.0/CashVault.DeviceDriver.Common.deps.json
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/bin/Debug/net8.0/CashVault.DeviceDriver.Common.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/bin/Debug/net8.0/CashVault.DeviceDriver.Common.pdb
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/CashVault.DeviceDriver.Common.csproj.AssemblyReference.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/CashVault.DeviceDriver.Common.GeneratedMSBuildEditorConfig.editorconfig
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/CashVault.DeviceDriver.Common.AssemblyInfoInputs.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/CashVault.DeviceDriver.Common.AssemblyInfo.cs
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/CashVault.DeviceDriver.Common.csproj.CoreCompileInputs.cache
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/CashVault.DeviceDriver.Common.sourcelink.json
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/CashVault.DeviceDriver.Common.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/refint/CashVault.DeviceDriver.Common.dll
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/CashVault.DeviceDriver.Common.pdb
+/home/nikolacetic/projects/monroe/device-client/src/CashVault/DeviceDriver.Common/obj/Debug/net8.0/ref/CashVault.DeviceDriver.Common.dll

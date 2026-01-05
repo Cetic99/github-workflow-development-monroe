@@ -1,0 +1,22 @@
+# Flyway TOML configuration file
+
+[environments.default]
+# Database connection settings
+url = "jdbc:firebirdsql://localhost:3050/monroedatabase"
+user = "SYSDBA"
+password = "nemanjanemanja"
+
+[flyway]
+# Flyway locations for the migration scripts
+locations = ["filesystem:/usr/local/monroe/database-migrations"]
+
+# If false, files with invalid names are ignored and Flyway continues normally. If true, Flyway fails fast and lists the offending files.
+validateMigrationNaming = true
+# Enable validation of migrations
+validateOnMigrate = true
+# The table where Flyway tracks the version history of migrations
+table = "flyway_schema_history"
+# Optional, enable baseline on migration if the database is not empty
+baselineOnMigrate = true
+# Flyway will run each migration in its own transaction
+#group = true

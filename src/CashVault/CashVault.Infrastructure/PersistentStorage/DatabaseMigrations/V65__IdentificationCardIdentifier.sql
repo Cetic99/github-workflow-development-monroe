@@ -1,0 +1,1 @@
+ALTER TABLE "IdentificationCard" ADD "CardIdentifier" VARCHAR(255);

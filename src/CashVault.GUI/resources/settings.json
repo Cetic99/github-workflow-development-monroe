@@ -1,0 +1,8 @@
+{
+  "logsPath": "<logsPath>",
+  "scriptsPath": "<scriptsPath>",
+  "masterPassword": "admin",
+  "requestTimeout": "15000",
+  "marketingWindowEnabled": false,
+  "marketingVideoPath": ""
+}

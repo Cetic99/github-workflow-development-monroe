@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "firebird5.0-server firebird5.0-server/sysdba-password password nemanjanemanja" | debconf-set-selections
+echo "firebird5.0-server firebird5.0-server/sysdba-password-again password nemanjanemanja" | debconf-set-selections

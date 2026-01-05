@@ -1,0 +1,3 @@
+INSERT INTO "Message" ("Guid", "Version", "LanguageCode", "Key", "Value") VALUES ('99987a67-cbfc-47c3-b118-a0adf7ef11d6', 1, 'bs', 'This device does not have administrative privileges. Some features may be restricted.', 'Ovaj uređaj nema administratorske privilegije. Neke funkcije mogu biti ograničene.');
+INSERT INTO "Message" ("Guid", "Version", "LanguageCode", "Key", "Value") VALUES ('702ac3fc-afb5-449f-b916-fc021b592058', 1, 'us', 'This device does not have administrative privileges. Some features may be restricted.', 'This device does not have administrative privileges. Some features may be restricted.');
+

@@ -1,0 +1,17 @@
+[Unit]
+Description=Monroe backbone .NET Web API
+After=network.target
+
+[Service]
+Type=simple
+User=monroe
+Group=monroe
+WorkingDirectory=/usr/share/CashVault.WebAPI
+ExecStart=/usr/share/CashVault.WebAPI/CashVault.WebAPI
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
