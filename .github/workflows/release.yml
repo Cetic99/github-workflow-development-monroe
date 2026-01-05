@@ -1,0 +1,60 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_notes:
+        description: 'Release notes (optional)'
+        required: false
+        default: ''
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-24.04
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract version from monroe-meta.txt
+        id: version
+        run: |
+          VERSION=$(grep '^version=' src/CashVault/CashVault.WebAPI/monroe-meta.txt | cut -d'=' -f2)
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
+      - name: Update version in DEBIAN control file
+        run: |
+          sed -i "s/^Version:.*/Version: ${{ steps.version.outputs.VERSION }}/" base_package/DEBIAN/control
+          echo "Updated control file:"
+          cat base_package/DEBIAN/control
+
+      - name: Install build dependencies
+        run: |
+          chmod +x install-build-dependencies.sh
+          ./install-build-dependencies.sh
+          echo "$HOME/.dotnet" >> $GITHUB_PATH
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Build .deb package
+        run: |
+          export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
+          chmod +x build-deb.sh
+          ./build-deb.sh
+
+      - name: List build artifacts
+        run: |
+          echo "Build artifacts in dist/:"
+          ls -la dist/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.VERSION }}
+          name: Release v${{ steps.version.outputs.VERSION }}
+          body: ${{ github.event.inputs.release_notes }}
+          draft: false
+          prerelease: false
+          files: dist/monroe_${{ steps.version.outputs.VERSION }}_amd64.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

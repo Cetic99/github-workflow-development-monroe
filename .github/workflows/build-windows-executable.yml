@@ -1,0 +1,127 @@
+name: Build Windows artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      buildFrontend:
+        description: 'Build Frontend'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      buildBackbone:
+        description: 'Build Backbone'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      packageSqlMigrations:
+        description: 'Package SQL Migrations'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  build-electron:
+    name: Build Frontend
+    runs-on: windows-latest
+    if: ${{ github.event.inputs.buildFrontend == 'true' }}
+    defaults:
+      run:
+        working-directory: ./src/CashVault.GUI
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Electron app
+        run: npm run build:win
+
+      - name: Update settings.json properties
+        run: |
+          $jsonPath = "./dist/win-unpacked/resources/app.asar.unpacked/resources/settings.json"
+          $json = Get-Content $jsonPath | ConvertFrom-Json
+          $json.logsPath = "<logsPath>"
+          $json.scriptsPath = "<scriptsPath>"
+          $json | ConvertTo-Json -Depth 100 | Set-Content $jsonPath
+
+      - name: Upload Electron artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend
+          path: ./src/CashVault.GUI/dist/win-unpacked
+          retention-days: 3
+
+  build-dotnet:
+    name: Build Backbone
+    runs-on: windows-latest
+    if: ${{ github.event.inputs.buildBackbone == 'true' }}
+    defaults:
+      run:
+        working-directory: ./src/CashVault/CashVault.WebAPI
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ./CashVault.WebAPI.csproj
+
+      - name: Build project
+        run: dotnet build ./CashVault.WebAPI.csproj --configuration Release
+
+      - name: Publish project
+        run: dotnet publish ./CashVault.WebAPI.csproj -c Release -o ./publish --self-contained true -r win-x64
+
+      - name: Update appsettings.json properties
+        run: |
+          $jsonPath = "./publish/appsettings.json"
+          $json = Get-Content $jsonPath | ConvertFrom-Json
+          $json.ConnectionStrings.CashVaultDatabase = "<CashVaultDatabase>"
+          $json | ConvertTo-Json -Depth 100 | Set-Content $jsonPath
+        
+      - name: Upload .NET artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: backbone
+          path: ./src/CashVault/CashVault.WebAPI/publish
+          retention-days: 3
+          
+  package-sql-migrations:
+    name: Package SQL Migrations
+    runs-on: windows-latest
+    if: ${{ github.event.inputs.packageSqlMigrations == 'true' }}
+    defaults:
+      run:
+        working-directory: ./src/CashVault.Infrastructure
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Upload SQL Migrations
+        uses: actions/upload-artifact@v4
+        with:
+          name: sql-migrations
+          path: ./src/CashVault/CashVault.Infrastructure/PersistentStorage/DatabaseMigrations/*.sql
+          retention-days: 3

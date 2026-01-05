@@ -1,0 +1,109 @@
+name: Build Linux deb
+
+on:
+  push:
+    branches:
+      - user/nemanja-d/build-and-package
+  workflow_dispatch:
+    inputs:
+      buildFrontend:
+        description: 'Build Frontend'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      buildBackbone:
+        description: 'Build Backbone'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.buildFrontend == 'true' }}
+
+    env:
+      FRONTEND_APP_DIR: ./src/CashVault.GUI
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies (clean install)
+        run: |
+          npm ci
+        working-directory: ${{ env.FRONTEND_APP_DIR }}
+
+      - name: Build Electron app
+        run: |
+          npx electron-vite build
+        working-directory: ${{ env.FRONTEND_APP_DIR }}
+
+      - name: Package for Linux (deb)
+        run: |
+          npx electron-builder --linux deb
+        working-directory: ${{ env.FRONTEND_APP_DIR }}
+
+      - name: Upload .deb as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: monroe-frontend-deb-package
+          path: ${{ env.FRONTEND_APP_DIR }}/dist/*.deb
+          retention-days: 3
+
+  build-backbone:
+    name: Build Backbone
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.buildBackbone == 'true' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore ./src/CashVault/CashVault.WebAPI/CashVault.WebAPI.csproj
+
+      - name: Publish .NET WebAPI
+        run: |
+          dotnet publish ./src/CashVault/CashVault.WebAPI/CashVault.WebAPI.csproj -c Release -r linux-arm64 --self-contained true
+          # dotnet publish ./src/CashVault/CashVault.WebAPI/CashVault.WebAPI.csproj -c Release -r linux-x64 --self-contained true
+
+          mkdir -p ./src/CashVault/deb-package/usr/local/monroe
+          mkdir -p ./src/CashVault/deb-package/usr/local/monroe/database-migrations
+
+          cp -r ./src/CashVault/CashVault.Infrastructure/PersistentStorage/DatabaseMigrations/* ./src/CashVault/deb-package/usr/local/monroe/database-migrations
+          cp -r ./src/CashVault/CashVault.WebAPI/bin/Release/net8.0/linux-arm64/publish/* ./src/CashVault/deb-package/usr/local/monroe
+
+      - name: Package .NET WebAPI
+        run: |
+
+
+          chmod +x ./src/CashVault/deb-package/DEBIAN/preinst
+          chmod +x ./src/CashVault/deb-package/DEBIAN/postinst
+          chmod +x ./src/CashVault/deb-package/DEBIAN/prerm
+          dpkg-deb --build ./src/CashVault/deb-package monroe-backbone_1.0.0_arm64.deb
+        working-directory: ${{ github.workspace }}
+
+      - name: Upload .NET WebAPI as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: monroe-backbone-package
+          path: ./*.deb
+          retention-days: 3
