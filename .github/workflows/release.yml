@@ -11,6 +11,8 @@ on:
 jobs:
   build-and-release:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -29,12 +31,30 @@ jobs:
           echo "Updated control file:"
           cat base_package/DEBIAN/control
 
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+          
+      - name: Remove .NET 9+ SDKs
+        run: |
+          sudo rm -rf /usr/share/dotnet/sdk/9.* /usr/share/dotnet/sdk/1[0-9].*
+          dotnet --version
+          dotnet --list-sdks
+
       - name: Install build dependencies
         run: |
           chmod +x install-build-dependencies.sh
           ./install-build-dependencies.sh
           echo "$HOME/.dotnet" >> $GITHUB_PATH
           echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Install libtommath libraries
+        run: |
+          sudo cp base_package/usr/lib/x86_64-linux-gnu/libtommath.so.* /usr/lib/x86_64-linux-gnu/
+          sudo ln -sf /usr/lib/x86_64-linux-gnu/libtommath.so.1.2.1 /usr/lib/x86_64-linux-gnu/libtommath.so.1
+          sudo ldconfig
+          echo "Installed libtommath libraries"
 
       - name: Build .deb package
         run: |
