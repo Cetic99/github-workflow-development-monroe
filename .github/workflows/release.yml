@@ -3,13 +3,21 @@ name: Build and Release
 on:
   workflow_dispatch:
     inputs:
+      create_release:
+        description: 'Create GitHub Release'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
       release_notes:
         description: 'Release notes (optional)'
         required: false
         default: ''
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-24.04
     
     steps:
@@ -29,12 +37,30 @@ jobs:
           echo "Updated control file:"
           cat base_package/DEBIAN/control
 
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+          
+      - name: Remove .NET 9+ SDKs
+        run: |
+          sudo rm -rf /usr/share/dotnet/sdk/9.* /usr/share/dotnet/sdk/1[0-9].*
+          dotnet --version
+          dotnet --list-sdks
+
       - name: Install build dependencies
         run: |
           chmod +x install-build-dependencies.sh
           ./install-build-dependencies.sh
           echo "$HOME/.dotnet" >> $GITHUB_PATH
           echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Install libtommath libraries
+        run: |
+          sudo cp base_package/usr/lib/x86_64-linux-gnu/libtommath.so.* /usr/lib/x86_64-linux-gnu/
+          sudo ln -sf /usr/lib/x86_64-linux-gnu/libtommath.so.1.2.1 /usr/lib/x86_64-linux-gnu/libtommath.so.1
+          sudo ldconfig
+          echo "Installed libtommath libraries"
 
       - name: Build .deb package
         run: |
@@ -47,14 +73,56 @@ jobs:
           echo "Build artifacts in dist/:"
           ls -la dist/
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: monroe-deb-package
+          path: dist/monroe_${{ steps.version.outputs.VERSION }}_amd64.deb
+          retention-days: 3
+
+    outputs:
+      version: ${{ steps.version.outputs.VERSION }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-24.04
+    if: ${{ github.event.inputs.create_release == 'true' }}
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          if git rev-parse "v${{ needs.build.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag v${{ needs.build.outputs.version }} already exists"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "Tag v${{ needs.build.outputs.version }} does not exist"
+          fi
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: monroe-deb-package
+          path: dist/
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.version.outputs.VERSION }}
-          name: Release v${{ steps.version.outputs.VERSION }}
+          tag_name: v${{ needs.build.outputs.version }}
+          name: Release v${{ needs.build.outputs.version }}
           body: ${{ github.event.inputs.release_notes }}
           draft: false
           prerelease: false
-          files: dist/monroe_${{ steps.version.outputs.VERSION }}_amd64.deb
+          files: dist/monroe_${{ needs.build.outputs.version }}_amd64.deb
+          fail_on_unmatched_files: true
+          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
