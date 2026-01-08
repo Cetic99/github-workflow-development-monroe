@@ -2,10 +2,18 @@ name: Build DEB Package
 
 on:
   workflow_dispatch:
+    inputs:
+      create_draft:
+        description: 'Create GitHub draft release'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -66,3 +74,30 @@ jobs:
           name: monroe-deb-package
           path: dist/monroe_${{ steps.version.outputs.VERSION }}_amd64.deb
           retention-days: 3
+
+      - name: Create GitHub draft release
+        if: ${{ inputs.create_draft }}
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          tag_name: v${{ steps.version.outputs.VERSION }}
+          name: Monroe v${{ steps.version.outputs.VERSION }}
+          body: |
+            ## Monroe Release v${{ steps.version.outputs.VERSION }}
+            
+            ### Package
+            - **File**: monroe_${{ steps.version.outputs.VERSION }}_amd64.deb
+            - **Architecture**: amd64
+            
+            ### Installation
+            ```bash
+            sudo dpkg -i monroe_${{ steps.version.outputs.VERSION }}_amd64.deb
+            sudo apt-get install -f
+            ```
+            
+            ---
+            **Note**: This is a draft release. Please update the tag and release notes before publishing.
+          files: |
+            dist/monroe_${{ steps.version.outputs.VERSION }}_amd64.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
