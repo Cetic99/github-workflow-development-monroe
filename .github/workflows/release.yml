@@ -1,20 +1,7 @@
-name: Build and Release
+name: Build DEB Package
 
 on:
   workflow_dispatch:
-    inputs:
-      create_release:
-        description: 'Create GitHub Release'
-        required: true
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
-      release_notes:
-        description: 'Release notes (optional)'
-        required: false
-        default: ''
 
 jobs:
   build:
@@ -79,50 +66,3 @@ jobs:
           name: monroe-deb-package
           path: dist/monroe_${{ steps.version.outputs.VERSION }}_amd64.deb
           retention-days: 3
-
-    outputs:
-      version: ${{ steps.version.outputs.VERSION }}
-
-  release:
-    needs: build
-    runs-on: ubuntu-24.04
-    if: ${{ github.event.inputs.create_release == 'true' }}
-    permissions:
-      contents: write
-    
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Check if tag exists
-        id: check_tag
-        run: |
-          if git rev-parse "v${{ needs.build.outputs.version }}" >/dev/null 2>&1; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-            echo "Tag v${{ needs.build.outputs.version }} already exists"
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-            echo "Tag v${{ needs.build.outputs.version }} does not exist"
-          fi
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: monroe-deb-package
-          path: dist/
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ needs.build.outputs.version }}
-          name: Release v${{ needs.build.outputs.version }}
-          body: ${{ github.event.inputs.release_notes }}
-          draft: false
-          prerelease: false
-          files: dist/monroe_${{ needs.build.outputs.version }}_amd64.deb
-          fail_on_unmatched_files: true
-          make_latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
