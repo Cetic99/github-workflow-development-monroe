@@ -310,7 +310,7 @@ const EventLogs = () => {
               />
               <DropdownInput
                 size="m"
-                label={t('Device type')}
+                label={t('Device Type')}
                 options={DeviceTypeOptions}
                 value={modalFilters?.deviceType ?? ''}
                 onChange={(option) => onFilterChange('deviceType', option?.value)}
@@ -341,7 +341,7 @@ const EventLogs = () => {
             <div className="row">
               <DateInput
                 size="m"
-                label={t('From')}
+                label={t('from')}
                 value={modalFilters?.timestampFrom ?? ''}
                 dateFormat={'dd-MM-yyyy'}
                 className="full-width"
@@ -349,7 +349,7 @@ const EventLogs = () => {
               />
               <DateInput
                 size="m"
-                label={t('To')}
+                label={t('to')}
                 value={modalFilters?.timestampTo ?? ''}
                 dateFormat={'dd-MM-yyyy'}
                 className="full-width"

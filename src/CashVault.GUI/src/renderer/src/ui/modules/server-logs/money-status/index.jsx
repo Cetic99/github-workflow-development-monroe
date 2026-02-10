@@ -403,7 +403,7 @@ const MoneyStatusLogs = () => {
                 size="m"
                 allowDecimals={false}
                 allowNegativeValue={false}
-                label={t('Amount from')}
+                label={t(`${t('Amount')} ${t('from')}`)}
                 value={modalFilters?.amountFrom ?? ''}
                 onValueChange={(value, name, values) => {
                   onFilterChange('amountFrom', values?.float)
@@ -429,7 +429,7 @@ const MoneyStatusLogs = () => {
             <div className="row">
               <DateInput
                 size="m"
-                label={t('From')}
+                label={t('from')}
                 value={modalFilters?.timestampFrom ?? ''}
                 dateFormat={'dd-MM-yyyy'}
                 className="full-width"
@@ -437,7 +437,7 @@ const MoneyStatusLogs = () => {
               />
               <DateInput
                 size="m"
-                label={t('To')}
+                label={t('to')}
                 value={modalFilters?.timestampTo ?? ''}
                 className="full-width"
                 dateFormat={'dd-MM-yyyy'}

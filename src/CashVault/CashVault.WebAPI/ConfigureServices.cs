@@ -98,7 +98,7 @@ public static class ConfigureServices
                                {
                                    builder
                                        //.SetIsOriginAllowed(origin => true)
-                                       .WithOrigins("http://localhost:5173", "null")
+                                       .WithOrigins("http://localhost:5173", "http://127.0.0.1:5173", "null")
                                        .AllowAnyHeader()
                                        .AllowAnyMethod()
                                        .AllowCredentials();

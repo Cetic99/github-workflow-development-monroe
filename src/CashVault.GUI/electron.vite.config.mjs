@@ -11,6 +11,10 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {
+    server: {
+      host: '127.0.0.1',
+      port: 5173
+    },
     resolve: {
       alias: {
         '@ui': resolve('src/renderer/src/ui'),

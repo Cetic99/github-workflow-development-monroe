@@ -284,6 +284,25 @@ EOF
     echo "────────────────────────────────────────────"
 }
 
+# Function to setup dummy network adapter
+# This works around an Electron/Chromium issue where WebSocket client connections
+# are blocked when all physical network adapters go DOWN (e.g., unplugged Ethernet cable).
+# Even though the backend can send to client and HTTP works fine, the client cannot
+# send WebSocket messages. Creating a dummy adapter with an IP tricks Chromium into
+# seeing an 'active' network at all times, keeping WebSocket connections alive.
+setup_dummy_network_adapter() {
+    echo "────────────────────────────────────────────"
+    echo "   Setting up dummy network adapter"
+    echo "────────────────────────────────────────────"
+    
+    # Enable and start the service
+    systemctl enable monroe-dummy-network.service
+    systemctl start monroe-dummy-network.service
+    
+    echo "✓ Dummy network adapter configured and will persist after reboot"
+    echo "────────────────────────────────────────────"
+}
+
 # Restore .env backup from preinst if it exists (upgrade scenario)
 if [ -f "${ENV_FILE}.backup" ]; then
     echo "Restoring .env file from backup..."
@@ -342,26 +361,12 @@ case "$1" in
             sudo chmod 660 /usr/local/monroe/monroe-db.fdb
             sudo chown firebird:firebird /usr/local/monroe/monroe-db.fdb
         fi
-        
-        # Setup early KMS for smooth resolution
-        if [ -x /usr/local/monroe/scripts/setup-early-kms.sh ]; then
-            echo "Setting up early KMS for smooth boot..."
-            /usr/local/monroe/scripts/setup-early-kms.sh || {
-                echo "Warning: Early KMS setup failed, but continuing installation"
-            }
-        fi
-        
-        # Setup Plymouth splash screen
-        if [ -x /usr/local/monroe/scripts/plymouth-setup.sh ]; then
-            echo "Setting up Plymouth splash screen..."
-            /usr/local/monroe/scripts/plymouth-setup.sh || {
-                echo "Warning: Plymouth theme setup failed, but continuing installation"
-            }
-        fi
 
         # Apply polkit rule for NetworkManager and restart related services so new permissions take effect
         configure_networkmanager_permissions
 
+        # Setup dummy network adapter to prevent Electron WebSocket issues
+        setup_dummy_network_adapter
         
         # Ensure proper ownership of systemd user directory
         MONROE_HOME=$(getent passwd monroe | cut -d: -f6)

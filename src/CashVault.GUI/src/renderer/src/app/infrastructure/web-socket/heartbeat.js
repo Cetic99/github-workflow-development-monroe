@@ -24,7 +24,7 @@ import {
   loadPostalServices
 } from '@src/app/domain/parcel-locker/stores/parcel-store'
 
-const baseUrl = 'http://localhost:5745'
+const baseUrl = 'http://127.0.0.1:5745'
 const hub = 'heartbeathub'
 
 let reconnectTimeout = null

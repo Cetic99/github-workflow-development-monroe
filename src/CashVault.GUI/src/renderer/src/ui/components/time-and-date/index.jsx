@@ -36,11 +36,10 @@ const TimeAndDate = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setTime(new Date())
-    }, 60000)
+    }, 1000)
 
     return () => clearInterval(timer)
   }, [])
-
 
   return (
     <Container>

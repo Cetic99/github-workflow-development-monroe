@@ -426,7 +426,7 @@ const TransactionLogs = () => {
                 size="m"
                 allowDecimals={false}
                 allowNegativeValue={false}
-                label={t('Amount from')}
+                label={t(`${t('Amount')} ${t('from')}`)}
                 defaultValue={modalFilters?.amountFrom}
                 value={modalFilters?.amountFrom}
                 onValueChange={(value, name, values) => {
@@ -438,7 +438,7 @@ const TransactionLogs = () => {
                 size="m"
                 allowDecimals={false}
                 allowNegativeValue={false}
-                label={t('Amount to')}
+                label={t(`${t('Amount')} ${t('to')}`)}
                 defaultValue={modalFilters?.amountTo}
                 value={modalFilters?.amountTo}
                 onValueChange={(value, name, values) => {

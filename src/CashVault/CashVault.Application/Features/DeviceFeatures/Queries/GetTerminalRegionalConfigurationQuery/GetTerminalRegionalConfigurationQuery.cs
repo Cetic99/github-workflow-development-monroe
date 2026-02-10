@@ -49,7 +49,7 @@ namespace CashVault.Application.Features.DeviceFeatures.Queries
             dto.LocationName = config.LocationName;
 
             dto.LocalTimeZone = config.LocalTimeZone;
-            dto.LocalTimeZoneOptions.Add(new SelectListItem { Name = "None", Value = string.Empty });
+            dto.LocalTimeZoneOptions.Add(new SelectListItem { Name = _regionalService.Translate("None"), Value = string.Empty });
             dto.LocalTimeZoneOptions.AddRange(
                 _regionalService.GetAllTimeZones()
                 .Select(x => new SelectListItem
@@ -76,6 +76,18 @@ namespace CashVault.Application.Features.DeviceFeatures.Queries
 
             dto.DefaultLanguage = config.DefaultLanguage;
             dto.DefaultLanguageOptions = dto.DefaultLanguageOptions.Select(x => new SelectListItem()
+            {
+                Name = _regionalService.Translate(x.Name),
+                Value = x.Value
+            }).ToList();
+
+            dto.NumberSeparatorOptions = dto.NumberSeparatorOptions.Select(x => new SelectListItem()
+            {
+                Name = _regionalService.Translate(x.Name),
+                Value = x.Value
+            }).ToList();
+
+            dto.ValueFormatOptions = dto.ValueFormatOptions.Select(x => new SelectListItem()
             {
                 Name = _regionalService.Translate(x.Name),
                 Value = x.Value

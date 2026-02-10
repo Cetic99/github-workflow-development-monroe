@@ -3,7 +3,7 @@ import * as signalR from '@microsoft/signalr'
 import { isFunction } from 'lodash'
 import { globalStore } from '../../domain/global/stores'
 
-const baseUrl = 'http://localhost:5745'
+const baseUrl = 'http://127.0.0.1:5745'
 const moneyStatusHub = 'moneyserviceshub'
 const deviceHub = 'deviceeventshub'
 

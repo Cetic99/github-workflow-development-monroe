@@ -1,0 +1,14 @@
+[Unit]
+Description=Monroe Dummy Network Adapter (Electron WebSocket fix)
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/sbin/ip link add dummy0 type dummy
+ExecStart=/sbin/ip link set dummy0 up
+ExecStart=/sbin/ip addr add 10.10.10.10/24 dev dummy0
+ExecStop=/sbin/ip link del dummy0
+
+[Install]
+WantedBy=multi-user.target

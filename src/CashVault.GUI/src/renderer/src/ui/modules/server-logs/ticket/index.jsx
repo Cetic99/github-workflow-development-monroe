@@ -370,7 +370,7 @@ const TicketLogs = () => {
               <DecimalInput
                 size="m"
                 className="full-width"
-                label={t('Amount from')}
+                label={t(`${t('Amount')} ${t('from')}`)}
                 value={modalFilters?.amountFrom ?? ''}
                 onValueChange={(value, name, values) => {
                   onFilterChange('amountFrom', values?.float)
@@ -380,7 +380,7 @@ const TicketLogs = () => {
               <DecimalInput
                 size="m"
                 className="full-width"
-                label={t('Amount to')}
+                label={t(`${t('Amount')} ${t('to')}`)}
                 value={modalFilters?.amountTo ?? ''}
                 onValueChange={(value, name, values) => {
                   onFilterChange('amountTo', values?.float)

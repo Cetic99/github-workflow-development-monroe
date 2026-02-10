@@ -299,7 +299,7 @@ const EventFailLogs = () => {
             <div className="row">
               <DateInput
                 size="m"
-                label={t('From')}
+                label={t('from')}
                 value={modalFilters?.timestampFrom ?? ''}
                 dateFormat={'dd-MM-yyyy'}
                 className="full-width"
@@ -307,7 +307,7 @@ const EventFailLogs = () => {
               />
               <DateInput
                 size="m"
-                label={t('To')}
+                label={t('to')}
                 value={modalFilters?.timestampTo ?? ''}
                 dateFormat={'dd-MM-yyyy'}
                 className="full-width"
